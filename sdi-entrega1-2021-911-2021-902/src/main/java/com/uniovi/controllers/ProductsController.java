@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import com.uniovi.entities.Product;
 import com.uniovi.entities.User;
 import com.uniovi.services.*;
-import com.uniovi.validators.SignUpProductformValidator;
+import com.uniovi.validators.SignUpFormValidator;
 
 @Controller
 public class ProductsController {
@@ -35,7 +35,7 @@ public class ProductsController {
 	private UsersService usersService;
 
 	@Autowired
-	private SignUpProductformValidator signUpFormValidator;
+	private SignUpFormValidator signUpFormValidator;
 
 	@RequestMapping("/Product/list")
 	public String getList(Model model, Pageable pageable, Principal principal,

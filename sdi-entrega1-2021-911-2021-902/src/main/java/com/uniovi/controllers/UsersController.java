@@ -17,7 +17,7 @@ import com.uniovi.entities.*;
 import com.uniovi.services.RolesService;
 import com.uniovi.services.SecurityService;
 import com.uniovi.services.UsersService;
-import com.uniovi.validators.SignUpProductformValidator;
+import com.uniovi.validators.SignUpFormValidator;
 
 @Controller
 public class UsersController {
@@ -32,7 +32,7 @@ public class UsersController {
 	private SecurityService securityService;
 
 	@Autowired
-	private SignUpProductformValidator signUpFormValidator;
+	private SignUpFormValidator signUpFormValidator;
 
 	@RequestMapping("/user/list")
 	public String getListado(Model model, Pageable pageable,
