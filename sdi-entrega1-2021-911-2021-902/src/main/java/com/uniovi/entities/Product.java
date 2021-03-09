@@ -33,7 +33,7 @@ public class Product {
 
 	@Override
 	public String toString() {
-		return "Mark [id=" + id + ", description=" + description + ", score=" + score + "]";
+		return "Product [id=" + id + ", description=" + description + ", score=" + score + "]";
 	}
 
 	public Long getId() {

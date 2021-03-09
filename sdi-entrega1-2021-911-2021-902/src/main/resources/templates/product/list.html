@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/head" />
+
+<body>
+
+	<!-- Barra de Navegación superior -->
+	<nav th:replace="fragments/nav" />
+
+	<div class="container">
+		<h2 th:text="#{notes}">Productos</h2>
+		<form class="navbar-form" action="/product/list">
+			<div class="form-group">
+				<input name="searchText" type="text" class="form-control" size="50"
+					placeholder="Buscar por descripción o nombre del alumno">
+			</div>
+			<button type="submit" class="btn btn-default">Buscar</button>
+		</form>
+
+		<p th:text="#{note.list.message}">Lps productos que actualmente
+			figuran en el sistema son las siguientes:</p>
+		<button type="button" id="updateButton" class="btn btn-default"
+			th:text="#{update}">Actualizar</button>
+		<script th:inline="javascript"> 
+		/*<![CDATA[*/
+$( "#updateButton" ).click(function() { var numberPage = [[${param.page}]]; var urlUpdate = '/product/list/update'; if (numberPage != null ){ urlUpdate += "?page="+numberPage[0]; } $("#tableMarks").load(urlUpdate);});
+		/*]]>*/
+</script>
+		<div class="table-responsive">
+			<table class="table table-hover" th:fragment="tableMarks"
+				id="tableMarks">
+				<thead>
+					<tr>
+						<th class="col-md-1" th:text="#{id}">id</th>
+						<th th:text="#{details.description}">Descripción</th>
+						<th th:text="#{details.score}">Puntuación</th>
+						<th class="col-md-1"></th>
+						<th class="col-md-1"></th>
+						<th class="col-md-1"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="product : ${productList}">
+						<td th:text="${product.id}">1</td>
+						<td th:text="${product.description}">Ejercicio 1</td>
+						<td th:text="${product.score}">10</td>
+						<td><a th:href="${'/product/details/' + product.id}"
+							th:text="#{details}">detalles</a></td>
+						<td><a sec:authorize="hasRole('ROLE_ESTANDAR')"
+							th:href="${'/product/edit/' + product.id}" th:text="#{modify}">modificar</a>
+							<div sec:authorize="hasRole('ROLE_ESTANDAR')">
+								<div th:if="${product.resend}">
+									<button type="button" th:id="${'resendButton' + product.id}"
+										class="btn btn-info">Reenviar</button>
+									<script th:inline="javascript"> /*<![CDATA[*/ $( "#resendButton[[${product.id}]]" ).click(function() { $.get( "/product/[[${product.id}]]/noresend", function( data ) { var numberPage = [[${param.page}]]; var urlUpdate = '/product/list/update'; if ( numberPage != null ){ urlUpdate += "?page="+numberPage[0]; } $("#tableMarks").load(urlUpdate); }); }); /*]]>*/ </script>
+								</div>
+								<div th:unless="${product.resend}">
+									<button type="button" th:id="${'noresendButton' + .id}"
+										class="btn btn-default">No reenviar</button>
+									<script th:inline="javascript"> /*<![CDATA[*/ $( "#noresendButton[[${product.id}]]" ).click(function() { $.get( "/product/[[${product.id}]]/resend", function( data ) { var numberPage = [[${param.page}]]; var urlUpdate = '/product/list/update'; if ( numberPage != null ){ urlUpdate += "?page="+numberPage[0]; } $("#tableMarks").load(urlUpdate); }); }); /*]]>*/ </script>
+								</div>
+							</div></td>
+						<td><a sec:authorize="hasRole('ROLE_ESTANDAR')"
+							th:href="${'/product/delete/' + product.id}" th:text="#{remove}">eliminar</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<footer th:replace="fragments/pagination" />
+	</div>
+	<footer th:replace="fragments/footer" />
+</body>
+</html>

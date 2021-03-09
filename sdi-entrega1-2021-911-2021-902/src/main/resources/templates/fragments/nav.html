@@ -17,9 +17,9 @@
 						class="caret"></span>
 				</a>
 					<ul class="dropdown-menu">
-						<li sec:authorize="hasRole('ROLE_PROFESSOR')"><a
-							href="/mark/add" th:text="#{addmarks.message}"></a></li>
-						<li><a href="/mark/list" th:text="#{listmarks.message}"></a></li>
+						<li sec:authorize="hasRole('ROLE_ESTANDAR')"><a
+							href="/product/add" th:text="#{addmarks.message}"></a></li>
+						<li><a href="/product/list" th:text="#{listmarks.message}"></a></li>
 					</ul></li>
 				<li id="users-menu" class="dropdown"
 					sec:authorize="hasRole('ROLE_ADMIN')"><a

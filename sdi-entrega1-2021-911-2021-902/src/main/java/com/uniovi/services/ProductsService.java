@@ -65,10 +65,10 @@ public class ProductsService {
 
 	public Page<Product> getProductsForUser(Pageable pageable, User user) {
 		Page<Product> Products = new PageImpl<Product>(new LinkedList<Product>());
-		if (user.getRole().equals("ROLE_STUDENT")) {
+		if (user.getRole().equals("ROLE_ESTANDAR")) {
 			Products = ProductsRepository.findAllByUser(pageable, user);
 		}
-		if (user.getRole().equals("ROLE_PROFESSOR")) {
+		if (user.getRole().equals("ROLE_ESTANDAR")) {
 			Products = getProducts(pageable);
 		}
 		return Products;
