@@ -32,5 +32,19 @@ public class InsertSampleDataService {
 
 		usersService.addUser(user1);
 
+		User user2 = new User("99999990B", "Daniel");
+		user2.setPassword("123456");
+		user2.setRole(rolesService.getRoles()[1]);
+
+		Set user2Products = new HashSet<Product>() {
+			{
+				add(new Product("Nota A2", 8.0, user2));
+
+			}
+		};
+		user2.setProducts(user2Products);
+
+		usersService.addUser(user2);
+
 	}
 }
