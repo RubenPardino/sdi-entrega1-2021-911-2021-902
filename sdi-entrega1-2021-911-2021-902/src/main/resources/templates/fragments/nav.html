@@ -20,6 +20,7 @@
 						<li sec:authorize="hasRole('ROLE_ESTANDAR')"><a
 							href="/product/add" th:text="#{addoffers.message}"></a></li>
 						<li><a href="/product/list" th:text="#{listoffers.message}"></a></li>
+						<li><a href="/product/myList" th:text="#{listMyOffers.message}"></a></li>
 					</ul></li>
 				<li id="users-menu" class="dropdown"
 					sec:authorize="hasRole('ROLE_ADMIN')"><a

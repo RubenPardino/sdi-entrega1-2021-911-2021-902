@@ -47,7 +47,12 @@ $( "#updateButton" ).click(function() { var numberPage = [[${param.page}]]; var 
 						<td th:text="${product.description}">Ejercicio 1</td>
 						<td th:text="${product.money}">10</td>
 						<td><a th:href="${'/product/details/' + product.id}"
-							th:text="#{details}">detalles</a></td>
+							th:text="#{details}"></a></td>
+						<td><a sec:authorize="hasRole('ROLE_ESTANDAR')"
+							th:href="${'/product/edit/' + product.id}" th:text="#{modify}"></a>
+						</td>
+						<td><a sec:authorize="hasRole('ROLE_ESTANDAR')"
+							th:href="${'/product/delete/' + product.id}" th:text="#{remove}"></a></td>
 					</tr>
 				</tbody>
 			</table>

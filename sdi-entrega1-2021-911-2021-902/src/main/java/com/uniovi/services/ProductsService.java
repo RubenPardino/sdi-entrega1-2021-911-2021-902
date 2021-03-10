@@ -60,12 +60,7 @@ public class ProductsService {
 
 	public Page<Product> getProductsForUser(Pageable pageable, User user) {
 		Page<Product> Products = new PageImpl<Product>(new LinkedList<Product>());
-		if (user.getRole().equals("ROLE_ESTANDAR")) {
-			Products = ProductsRepository.findAllByUser(pageable, user);
-		}
-		if (user.getRole().equals("ROLE_ESTANDAR")) {
-			Products = getProducts(pageable);
-		}
+		Products = ProductsRepository.findAllByUser(pageable, user);
 		return Products;
 	}
 

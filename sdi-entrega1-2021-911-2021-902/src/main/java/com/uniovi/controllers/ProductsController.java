@@ -38,8 +38,25 @@ public class ProductsController {
 	@Autowired
 	private SignUpProductFormValidator signUpProductFormValidator;
 
-	@RequestMapping("/product/list")
+	@RequestMapping("/product/list")//"/product/myList"
 	public String getList(Model model, Pageable pageable, Principal principal,
+			@RequestParam(value = "", required = false) String searchText) {
+		String email = principal.getName();
+		User user = usersService.getUserByEmail(email);
+		Page<Product> Products = new PageImpl<Product>(new LinkedList<Product>());
+
+		if (searchText != null && !searchText.isEmpty()) {
+			Products = ProductsService.searchProductsByDescriptionAndNameForUser(pageable, searchText, user);
+		} else {
+			Products = ProductsService.getProducts(pageable);
+		}
+		model.addAttribute("productList", Products.getContent());
+		model.addAttribute("page", Products);
+		return "product/list";
+	}
+	
+	@RequestMapping("/product/myList")
+	public String getMyList(Model model, Pageable pageable, Principal principal,
 			@RequestParam(value = "", required = false) String searchText) {
 		String email = principal.getName();
 		User user = usersService.getUserByEmail(email);
@@ -52,7 +69,7 @@ public class ProductsController {
 		}
 		model.addAttribute("productList", Products.getContent());
 		model.addAttribute("page", Products);
-		return "product/list";
+		return "product/myList";
 	}
 
 	@RequestMapping(value = "/product/add")
