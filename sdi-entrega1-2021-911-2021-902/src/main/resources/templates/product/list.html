@@ -50,18 +50,7 @@ $( "#updateButton" ).click(function() { var numberPage = [[${param.page}]]; var 
 							th:text="#{details}">detalles</a></td>
 						<td><a sec:authorize="hasRole('ROLE_ESTANDAR')"
 							th:href="${'/product/edit/' + product.id}" th:text="#{modify}">modificar</a>
-							<div sec:authorize="hasRole('ROLE_ESTANDAR')">
-								<div th:if="${product.resend}">
-									<button type="button" th:id="${'resendButton' + product.id}"
-										class="btn btn-info">Reenviar</button>
-									<script th:inline="javascript"> /*<![CDATA[*/ $( "#resendButton[[${product.id}]]" ).click(function() { $.get( "/product/[[${product.id}]]/noresend", function( data ) { var numberPage = [[${param.page}]]; var urlUpdate = '/product/list/update'; if ( numberPage != null ){ urlUpdate += "?page="+numberPage[0]; } $("#tableMarks").load(urlUpdate); }); }); /*]]>*/ </script>
-								</div>
-								<div th:unless="${product.resend}">
-									<button type="button" th:id="${'noresendButton' + .id}"
-										class="btn btn-default">No reenviar</button>
-									<script th:inline="javascript"> /*<![CDATA[*/ $( "#noresendButton[[${product.id}]]" ).click(function() { $.get( "/product/[[${product.id}]]/resend", function( data ) { var numberPage = [[${param.page}]]; var urlUpdate = '/product/list/update'; if ( numberPage != null ){ urlUpdate += "?page="+numberPage[0]; } $("#tableMarks").load(urlUpdate); }); }); /*]]>*/ </script>
-								</div>
-							</div></td>
+						</td>
 						<td><a sec:authorize="hasRole('ROLE_ESTANDAR')"
 							th:href="${'/product/delete/' + product.id}" th:text="#{remove}">eliminar</a></td>
 					</tr>
