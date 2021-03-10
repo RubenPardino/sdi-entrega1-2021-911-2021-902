@@ -18,8 +18,9 @@
 				<thead>
 					<tr>
 						<th class="col-md-1">Id</th>
+						<th>Título</th>
 						<th>Description</th>
-						<th>Score</th>
+						<th>Precio</th>
 						<th class="col-md-1"></th>
 						<th class="col-md-1"></th>
 						<th class="col-md-1"></th>
@@ -28,8 +29,9 @@
 				<tbody>
 					<tr th:each="product : ${productList}">
 						<td th:text="${product.id}"></td>
+						<td th:text="${product.title}"></td>
 						<td th:text="${product.description}"></td>
-						<td th:text="${product.score}"></td>
+						<td th:text="${product.money}"></td>
 						<td><a th:href="${'/product/details/' + product.id}">detalles</a></td>
 						<td><a th:href="${'/product/edit/' + product.id}"
 							sec:authorize="hasRole('ROLE_ESTANDAR')">modificar</a></td>

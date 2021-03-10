@@ -20,6 +20,7 @@ public class SignUpProductFormValidator implements Validator {
 		Product product = (Product) target;
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "description", "Error.empty");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "money", "Error.empty");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "title", "Error.empty");
 
 		if (product.getDescription().length() < 20) {
 			errors.rejectValue("description", "Error.addmark.description.length");

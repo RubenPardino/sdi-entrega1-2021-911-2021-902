@@ -19,7 +19,8 @@ public class SignUpFormValidator implements Validator {
 	@Override
 	public void validate(Object target, Errors errors) {
 		User user = (User) target;
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "Error.empty");
+	
+
 		if (!user.getEmail().contains("@")) {
 			errors.rejectValue("email", "Error.singup.email");
 		}
@@ -27,11 +28,13 @@ public class SignUpFormValidator implements Validator {
 			errors.rejectValue("email", "Error.signup.email.duplicate");
 		}
 		if (user.getLastName().length() < 3 || user.getLastName().length() > 24) {
-			errors.rejectValue("name", "Error.signup.lastName.length");
+			errors.rejectValue("lastName", "Error.signup.lastName.length");
 		}
 		if (user.getName().length() < 3 || user.getName().length() > 24) {
 			errors.rejectValue("name", "Error.signup.name.length");
 		}
+		
+
 		if (user.getPassword().length() < 5 || user.getPassword().length() > 24) {
 			errors.rejectValue("password", "Error.signup.password.length");
 		}
