@@ -121,6 +121,7 @@ public class UsersController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String email = auth.getName();
 		User activeUser = usersService.getUserByEmail(email);
+		model.addAttribute("user", activeUser);
 		model.addAttribute("productList", activeUser.getProducts());
 		return "home";
 	}

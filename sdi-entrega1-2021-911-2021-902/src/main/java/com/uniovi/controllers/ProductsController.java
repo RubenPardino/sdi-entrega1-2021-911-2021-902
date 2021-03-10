@@ -41,7 +41,7 @@ public class ProductsController {
 	@RequestMapping("/product/list")
 	public String getList(Model model, Pageable pageable, Principal principal,
 			@RequestParam(value = "", required = false) String searchText) {
-		String email = principal.getName(); // DNI es el name de la autenticación
+		String email = principal.getName();
 		User user = usersService.getUserByEmail(email);
 		Page<Product> Products = new PageImpl<Product>(new LinkedList<Product>());
 

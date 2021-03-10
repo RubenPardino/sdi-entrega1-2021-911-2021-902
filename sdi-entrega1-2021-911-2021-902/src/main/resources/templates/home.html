@@ -8,7 +8,8 @@
 		<p>
 			<span th:text="#{authenticated.message}"> </span>
 			<span
-				sec:authentication="principal.username" th:inline="text"> </span>
+				sec:authentication="principal.username" th:inline="text"> Dinero: </span>
+				<span th:text="${user.money}"> </span>
 		</p>
 		<p th:text="#{userOffers.message}"></p>
 		<div class="table-responsive">
