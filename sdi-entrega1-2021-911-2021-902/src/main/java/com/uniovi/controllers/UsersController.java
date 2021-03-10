@@ -61,9 +61,15 @@ public class UsersController {
 		return "user/details";
 	}
 
-	@RequestMapping("/user/delete/{id}")
+	@RequestMapping("/user/delete/{id}")///user/confirmDelete
 	public String delete(@PathVariable Long id) {
-		usersService.deleteUser(id);
+		usersService.manageDeleteUser(id);
+		return "redirect:/user/list";
+	}
+	
+	@RequestMapping("/user/confirmDelete")
+	public String confirmDelete() {
+		usersService.confirmDelete();
 		return "redirect:/user/list";
 	}
 

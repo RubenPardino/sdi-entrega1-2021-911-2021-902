@@ -18,6 +18,8 @@ public class UsersService {
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	List<Long> ids = new ArrayList<Long>();
 
 	@PostConstruct
 	public void init() {
@@ -56,8 +58,17 @@ public class UsersService {
 		return users;
 	}
 
-	public void deleteUser(Long id) {
-		usersRepository.deleteById(id);
+	public void manageDeleteUser(Long id) {
+		if (ids.contains(id))
+			ids.remove(id);
+		else
+			ids.add(id);
+	}
+	
+	public void confirmDelete() {
+		for (int i=0;i<ids.size();i++)
+			usersRepository.deleteById(ids.get(i));
+		ids.clear();
 	}
 
 }

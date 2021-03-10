@@ -57,6 +57,22 @@
 				</tbody>
 			</table>
 		</div>
+		<button type="button" id="deleteButton" class="btn btn-default">Eliminar</button>
+		<script th:inline="javascript">
+ 			/*<![CDATA[*/
+ 				$( "#deleteButton" ).click(function() {
+						$.get( "/user/confirmDelete", function( data ) {
+						var numberPage = [[${param.page}]];
+						var urlUpdate = '/user/list/update';
+						if ( numberPage != null ){
+							urlUpdate += "?page="+numberPage[0];
+						}
+						$.get(urlUpdate,console.log);
+						$("#tableUsers").load(urlUpdate);
+					});
+				});
+ 			/*]]>*/
+ 		</script>
 		<footer th:replace="fragments/pagination" />
 	</div>
 	<footer th:replace="fragments/footer" />
