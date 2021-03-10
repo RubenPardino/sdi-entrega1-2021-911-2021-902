@@ -33,7 +33,7 @@
 				id="tableUsers">
 				<thead>
 					<tr>
-						<th>DNI</th>
+						<th>Email</th>
 						<th>Nombre</th>
 						<th>Apellidos</th>
 						<th class="col-md-1"></th>
@@ -45,9 +45,10 @@
 				</thead>
 				<tbody>
 					<tr th:each="user : ${usersList}">
-						<td th:text="${user.dni}">71888888X</td>
+						<td th:text="${user.email}">test@gmail.com</td>
 						<td th:text="${user.name}">Nombre del alumno</td>
-						<td><a th:href="${'/user/details/' + user.id}">detalles</a></td>
+						<td th:text="${user.lastName}">Apellido</td>
+					    <td><a th:href="${'/user/details/' + user.id}">detalles</a></td>
 						<td><a th:href="${'/user/edit/' + user.id}">modificar</a></td>
 						<td><a th:href="${'/user/delete/' + user.id}">eliminar</a></td>
 					</tr>

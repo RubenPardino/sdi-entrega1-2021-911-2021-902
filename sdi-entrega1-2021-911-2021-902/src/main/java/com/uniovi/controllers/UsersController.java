@@ -87,8 +87,8 @@ public class UsersController {
 		// user.setId(id);
 		// usersService.addUser(user);
 		User original = usersService.getUser(id);
-		//original.setName(user.getName());
-		//original.setDni(user.getDni());
+		original.setName(user.getName());
+		original.setEmail(user.getEmail());
 		usersService.addUser(original);
 		return "redirect:/user/details/" + id;
 	}
