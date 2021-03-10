@@ -45,6 +45,20 @@ public class InsertSampleDataService {
 		user2.setProducts(user2Products);
 
 		usersService.addUser(user2);
+		
+		User user3 = new User("b@gmail.com", "Marta", "Fernandez");
+		user3.setPassword("123456");
+		user3.setRole(rolesService.getRoles()[0]);
+
+		Set user3Products = new HashSet<Product>() {
+			{
+				add(new Product("Figura de Playmobil",10.0 , "Juguete de plástico" , user3));
+
+			}
+		};
+		user3.setProducts(user3Products);
+
+		usersService.addUser(user3);
 
 	}
 }

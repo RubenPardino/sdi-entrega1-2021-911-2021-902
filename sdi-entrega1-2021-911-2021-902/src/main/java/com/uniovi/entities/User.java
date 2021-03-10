@@ -32,6 +32,7 @@ public class User {
 	}
 
 	public User() {
+		this.money = 100.0;
 	}
 
 	public long getId() {

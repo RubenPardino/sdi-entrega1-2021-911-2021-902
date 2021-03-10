@@ -35,6 +35,7 @@ public class UsersService {
 
 	public Page<User> getUsers(Pageable pageable) {
 		Page<User> users = usersRepository.findAll(pageable);
+		
 		return users;
 	}
 
