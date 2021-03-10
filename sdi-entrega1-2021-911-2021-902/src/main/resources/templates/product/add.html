@@ -9,13 +9,13 @@
 
 
 	<div class="container">
-		<h2 th:text="#{add.product}"></h2>
+		<h2 th:text="#{addOffer.message}"></h2>
 		<form class="form-horizontal" method="post" action="/product/add"
 			th:object="${product}">
 			
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="title"
-					th:text="#{title}">Título:</label>
+					th:text="#{title.message}">Título:</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" name="title"
 						placeholder="Ejemplo Ejercicio 1" required="true" /><span
@@ -26,7 +26,7 @@
 			
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="description"
-					th:text="#{description}">Descripcion:</label>
+					th:text="#{description.message}">Descripcion:</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" name="description"
 						placeholder="Ejemplo Ejercicio 1" required="true" /><span
@@ -35,7 +35,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2" for="pwd" th:text="#{money}">Precio (€):</label>
+				<label class="control-label col-sm-2" for="pwd" th:text="#{money.message}">Precio (€):</label>
 				<div class="col-sm-10">
 					<input type="number" class="form-control" name="money"
 						placeholder="50" required="true" /><span
@@ -45,7 +45,7 @@
 			</div>
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
-					<button type="submit" class="btn btn-primary" th:text="#{send}">Enviar</button>
+					<button type="submit" class="btn btn-primary" th:text="#{send.message}">Enviar</button>
 				</div>
 			</div>
 		</form>

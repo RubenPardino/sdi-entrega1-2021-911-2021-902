@@ -8,19 +8,18 @@
 	<nav th:replace="fragments/nav" />
 
 	<div class="container">
-		<h2 th:text="#{notes}">Productos</h2>
+		<h2 th:text="#{offers.message}"></h2>
 		<form class="navbar-form" action="/product/list">
 			<div class="form-group">
 				<input name="searchText" type="text" class="form-control" size="50"
 					placeholder="Buscar por descripción o nombre del alumno">
 			</div>
-			<button type="submit" class="btn btn-default">Buscar</button>
+			<button type="submit" class="btn btn-default" th:text="#{search.message}"></button>
 		</form>
 
-		<p th:text="#{note.list.message}">Lps productos que actualmente
-			figuran en el sistema son las siguientes:</p>
+		<p th:text="#{offerslist.message}"></p>
 		<button type="button" id="updateButton" class="btn btn-default"
-			th:text="#{update}">Actualizar</button>
+			th:text="#{update.message}"></button>
 		<script th:inline="javascript"> 
 		/*<![CDATA[*/
 $( "#updateButton" ).click(function() { var numberPage = [[${param.page}]]; var urlUpdate = '/product/list/update'; if (numberPage != null ){ urlUpdate += "?page="+numberPage[0]; } $("#tableMarks").load(urlUpdate);});
@@ -31,10 +30,10 @@ $( "#updateButton" ).click(function() { var numberPage = [[${param.page}]]; var 
 				id="tableMarks">
 				<thead>
 					<tr>
-						<th class="col-md-1" th:text="#{id}">id</th>
-						<th th:text="#{details.title}">Título</th>
-						<th th:text="#{details.description}">Descripción</th>
-						<th th:text="#{details.money}">Precio</th>
+						<th class="col-md-1">Id</th>
+						<th th:text="#{table.message1}">Título</th>
+						<th th:text="#{table.message2}">Descripción</th>
+						<th th:text="#{table.message3}">Precio</th>
 						<th class="col-md-1"></th>
 						<th class="col-md-1"></th>
 						<th class="col-md-1"></th>
@@ -47,12 +46,12 @@ $( "#updateButton" ).click(function() { var numberPage = [[${param.page}]]; var 
 						<td th:text="${product.description}">Ejercicio 1</td>
 						<td th:text="${product.money}">10</td>
 						<td><a th:href="${'/product/details/' + product.id}"
-							th:text="#{details}"></a></td>
+							th:text="#{details.message}"></a></td>
 						<td><a sec:authorize="hasRole('ROLE_ESTANDAR')"
-							th:href="${'/product/edit/' + product.id}" th:text="#{modify}"></a>
+							th:href="${'/product/edit/' + product.id}" th:text="#{modify.message}"></a>
 						</td>
 						<td><a sec:authorize="hasRole('ROLE_ESTANDAR')"
-							th:href="${'/product/delete/' + product.id}" th:text="#{remove}"></a></td>
+							th:href="${'/product/delete/' + product.id}" th:text="#{delete.message}"></a></td>
 					</tr>
 				</tbody>
 			</table>

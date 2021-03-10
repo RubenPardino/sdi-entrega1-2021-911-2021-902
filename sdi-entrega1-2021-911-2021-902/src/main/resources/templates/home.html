@@ -18,9 +18,9 @@
 				<thead>
 					<tr>
 						<th class="col-md-1">Id</th>
-						<th>Título</th>
-						<th>Description</th>
-						<th>Precio</th>
+						<th th:text="#{table.message1}">Título</th>
+						<th th:text="#{table.message2}">Descripción</th>
+						<th th:text="#{table.message3}">Precio</th>
 						<th class="col-md-1"></th>
 						<th class="col-md-1"></th>
 						<th class="col-md-1"></th>
@@ -32,11 +32,11 @@
 						<td th:text="${product.title}"></td>
 						<td th:text="${product.description}"></td>
 						<td th:text="${product.money}"></td>
-						<td><a th:href="${'/product/details/' + product.id}">detalles</a></td>
+						<td><a th:href="${'/product/details/' + product.id}" th:text="#{details.message}"></a></td>
 						<td><a th:href="${'/product/edit/' + product.id}"
-							sec:authorize="hasRole('ROLE_ESTANDAR')">modificar</a></td>
+							sec:authorize="hasRole('ROLE_ESTANDAR')" th:text="#{modify.message}"></a></td>
 						<td><a th:href="${'/product/delete/' + product.id}"
-							sec:authorize="hasRole('ROLE_ESTANDAR')">eliminar</a></td>
+							sec:authorize="hasRole('ROLE_ESTANDAR')" th:text="#{delete.message}"></a></td>
 					</tr>
 				</tbody>
 			</table>
