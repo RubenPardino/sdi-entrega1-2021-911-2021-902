@@ -41,8 +41,8 @@ public class ProductsController {
 	@RequestMapping("/product/list")
 	public String getList(Model model, Pageable pageable, Principal principal,
 			@RequestParam(value = "", required = false) String searchText) {
-		String dni = principal.getName(); // DNI es el name de la autenticación
-		User user = usersService.getUserByDni(dni);
+		String email = principal.getName(); // DNI es el name de la autenticación
+		User user = usersService.getUserByEmail(email);
 		Page<Product> Products = new PageImpl<Product>(new LinkedList<Product>());
 
 		if (searchText != null && !searchText.isEmpty()) {
@@ -104,22 +104,22 @@ public class ProductsController {
 
 	@RequestMapping("/product/list/update")
 	public String updateList(Model model, Pageable pageable, Principal principal) {
-		String dni = principal.getName(); // DNI es el name de la autenticación
-		User user = usersService.getUserByDni(dni);
+		String email = principal.getName();
+		User user = usersService.getUserByEmail(email);
 		Page<Product> Products = ProductsService.getProductsForUser(pageable, user);
 		model.addAttribute("productList", Products.getContent());
 		return "product/list :: tableProducts";
 	}
 
-	@RequestMapping(value = "/product/{id}/resend", method = RequestMethod.GET)
-	public String setResendTrue(Model model, @PathVariable Long id) {
-		ProductsService.setProductResend(true, id);
-		return "redirect:/product/list";
-	}
-
-	@RequestMapping(value = "/product/{id}/noresend", method = RequestMethod.GET)
-	public String setResendFalse(Model model, @PathVariable Long id) {
-		ProductsService.setProductResend(false, id);
-		return "redirect:/product/list";
-	}
+//	@RequestMapping(value = "/product/{id}/resend", method = RequestMethod.GET)
+//	public String setResendTrue(Model model, @PathVariable Long id) {
+//		ProductsService.setProductResend(true, id);
+//		return "redirect:/product/list";
+//	}
+//
+//	@RequestMapping(value = "/product/{id}/noresend", method = RequestMethod.GET)
+//	public String setResendFalse(Model model, @PathVariable Long id) {
+//		ProductsService.setProductResend(false, id);
+//		return "redirect:/product/list";
+//	}
 }

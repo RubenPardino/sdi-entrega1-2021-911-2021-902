@@ -13,13 +13,13 @@
 			<ul class="nav navbar-nav" sec:authorize="isAuthenticated()">
 				<li><a href="/">Home</a></li>
 				<li id="marks-menu" class="dropdown"><a class="dropdown-toggle"
-					data-toggle="dropdown" href="#" th:text="#{marks.message}"> <span
+					data-toggle="dropdown" href="#" th:text="#{offers.message}"> <span
 						class="caret"></span>
 				</a>
 					<ul class="dropdown-menu">
 						<li sec:authorize="hasRole('ROLE_ESTANDAR')"><a
-							href="/product/add" th:text="#{addmarks.message}"></a></li>
-						<li><a href="/product/list" th:text="#{listmarks.message}"></a></li>
+							href="/product/add" th:text="#{addoffers.message}"></a></li>
+						<li><a href="/product/list" th:text="#{listoffers.message}"></a></li>
 					</ul></li>
 				<li id="users-menu" class="dropdown"
 					sec:authorize="hasRole('ROLE_ADMIN')"><a
@@ -28,19 +28,10 @@
 				</a>
 					<ul id="adminTest" class="dropdown-menu">
 						<li><a href="/user/add" th:text="#{addusers.message}"></a></li>
-						<li><a href="/user/list" th:text="#{listusers.message}"></a></li>	
-					</ul></li>
-				<li id="professors-menu" class="dropdown"
-					sec:authorize="hasRole('ROLE_ADMIN')"><a
-					class="dropdown-toggle" data-toggle="dropdown" href="#"
-					th:text="#{professors.message}"> <span class="caret"></span>
-				</a>
-					<ul id="adminTest" class="dropdown-menu">
-						<li><a href="/professor/add" th:text="#{addprofessor.message}"></a></li>
-						<li><a href="/professor/list" th:text="#{listprofessors.message}"></a></li>
+						<li><a href="/user/list" th:text="#{listusers.message}"></a></li>
 					</ul></li>
 			</ul>
-			
+
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown"><a id="btnLanguage" href="#"
 					class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -68,7 +59,8 @@
 					th:text="#{login.message}"> <span
 						class="glyphicon glyphicon-log-in"></span> Identifícate
 				</a></li>
-				<li sec:authorize="isAuthenticated()"><a href="/logout"> <span
+				<li sec:authorize="isAuthenticated()"><a href="/logout"
+					th:text="#{disconnect.message}"> <span
 						class="glyphicon glyphicon-log-out"></span> Desconectar
 				</a></li>
 			</ul>

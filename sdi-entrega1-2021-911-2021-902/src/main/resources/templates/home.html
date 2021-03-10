@@ -5,35 +5,35 @@
 	<nav th:replace="fragments/nav" />
 	<div class="container" style="text-align: center">
 		<h2 th:text="#{welcome.message}"></h2>
-		<h3>Esta es una zona privada la web</h3>
 		<p>
-			Usuario Autenticado como : <span
+			<span th:text="#{authenticated.message}"> </span>
+			<span
 				sec:authentication="principal.username" th:inline="text"> </span>
 		</p>
-		<p>Productos del usuario</p>
+		<p th:text="#{userOffers.message}"></p>
 		<div class="table-responsive">
 			<table class="table table-hover" th:fragment="tableMarks"
 				id="tableMarks">
 				<thead>
 					<tr>
-						<th class="col-md-1">id</th>
-						<th>Descripción</th>
-						<th>Puntuación</th>
+						<th class="col-md-1">Id</th>
+						<th>Description</th>
+						<th>Score</th>
 						<th class="col-md-1"></th>
 						<th class="col-md-1"></th>
 						<th class="col-md-1"></th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="mark : ${markList}">
-						<td th:text="${mark.id}">1</td>
-						<td th:text="${mark.description}">Ejercicio 1</td>
-						<td th:text="${mark.score}">10</td>
-						<td><a th:href="${'/mark/details/' + mark.id}">detalles</a></td>
-						<td><a th:href="${'/mark/edit/' + mark.id}"
-							sec:authorize="hasRole('ROLE_PROFESSOR')">modificar</a></td>
-						<td><a th:href="${'/mark/delete/' + mark.id}"
-							sec:authorize="hasRole('ROLE_PROFESSOR')">eliminar</a></td>
+					<tr th:each="product : ${productList}">
+						<td th:text="${product.id}"></td>
+						<td th:text="${product.description}"></td>
+						<td th:text="${product.score}"></td>
+						<td><a th:href="${'/product/details/' + product.id}">detalles</a></td>
+						<td><a th:href="${'/product/edit/' + product.id}"
+							sec:authorize="hasRole('ROLE_ESTANDAR')">modificar</a></td>
+						<td><a th:href="${'/product/delete/' + product.id}"
+							sec:authorize="hasRole('ROLE_ESTANDAR')">eliminar</a></td>
 					</tr>
 				</tbody>
 			</table>

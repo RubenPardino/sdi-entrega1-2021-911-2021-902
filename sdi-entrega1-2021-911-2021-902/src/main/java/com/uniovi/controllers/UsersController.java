@@ -87,8 +87,8 @@ public class UsersController {
 		// user.setId(id);
 		// usersService.addUser(user);
 		User original = usersService.getUser(id);
-		original.setName(user.getName());
-		original.setDni(user.getDni());
+		//original.setName(user.getName());
+		//original.setDni(user.getDni());
 		usersService.addUser(original);
 		return "redirect:/user/details/" + id;
 	}
@@ -107,7 +107,7 @@ public class UsersController {
 		}
 		user.setRole(rolesService.getRoles()[0]);
 		usersService.addUser(user);
-		securityService.autoLogin(user.getDni(), user.getPasswordConfirm());
+		securityService.autoLogin(user.getEmail(), user.getPasswordConfirm());
 		return "redirect:home";
 	}
 
@@ -119,9 +119,9 @@ public class UsersController {
 	@RequestMapping(value = { "/home" }, method = RequestMethod.GET)
 	public String home(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String dni = auth.getName();
-		User activeUser = usersService.getUserByDni(dni);
-		model.addAttribute("ProductList", activeUser.getProducts());
+		String email = auth.getName();
+		User activeUser = usersService.getUserByEmail(email);
+		model.addAttribute("productList", activeUser.getProducts());
 		return "home";
 	}
 

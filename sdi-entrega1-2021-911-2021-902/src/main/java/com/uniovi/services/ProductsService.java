@@ -54,14 +54,14 @@ public class ProductsService {
 		return obtainedProduct;
 	}
 
-	public void setProductResend(boolean revised, Long id) {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String dni = auth.getName();
-		Product Product = ProductsRepository.findById(id).get();
-		if (Product.getUser().getDni().equals(dni)) {
-			ProductsRepository.updateResend(revised, id);
-		}
-	}
+//	public void setProductResend(boolean revised, Long id) {
+//		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//		String dni = auth.getName();
+//		Product Product = ProductsRepository.findById(id).get();
+//		if (Product.getUser().getDni().equals(dni)) {
+//			ProductsRepository.updateResend(revised, id);
+//		}
+//	}
 
 	public Page<Product> getProductsForUser(Pageable pageable, User user) {
 		Page<Product> Products = new PageImpl<Product>(new LinkedList<Product>());
