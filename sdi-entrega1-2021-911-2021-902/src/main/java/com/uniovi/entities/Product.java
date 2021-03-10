@@ -1,5 +1,7 @@
 package com.uniovi.entities;
 
+import java.time.LocalDate;
+
 import javax.persistence.*;
 
 @Entity
@@ -7,33 +9,61 @@ public class Product {
 	@Id
 	@GeneratedValue
 	private Long id;
+	private String title;
+	private LocalDate date;
+	private Double money;
 	private String description;
-	private Double score;
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
 
-	public Product(Long id, String description, Double score) {
+	public Product(Long id, String title, Double money, String description, User user) {
 		super();
 		this.id = id;
+		this.title = title;
+		this.money = money;
 		this.description = description;
-		this.score = score;
+		this.user = user;
+		date = java.time.LocalDate.now();
 	}
 
-	public Product(String description, Double score, User user) {
+	public Product(String title, Double money, String description, User user) {
 		super();
+		this.title = title;
+		this.money = money;
 		this.description = description;
-		this.score = score;
 		this.user = user;
+		date = java.time.LocalDate.now();
+
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public LocalDate getDate() {
+		return date;
+	}
+
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
+
+	public Double getMoney() {
+		return money;
+	}
+
+	public void setMoney(Double money) {
+		this.money = money;
 	}
 
 	public Product() {
-	}
-
-	@Override
-	public String toString() {
-		return "Product [id=" + id + ", description=" + description + ", score=" + score + "]";
+		date = java.time.LocalDate.now();
 	}
 
 	public Long getId() {
@@ -52,14 +82,6 @@ public class Product {
 		this.description = description;
 	}
 
-	public Double getScore() {
-		return score;
-	}
-
-	public void setScore(Double score) {
-		this.score = score;
-	}
-
 	public User getUser() {
 		return user;
 	}
@@ -67,6 +89,5 @@ public class Product {
 	public void setUser(User user) {
 		this.user = user;
 	}
-
 
 }

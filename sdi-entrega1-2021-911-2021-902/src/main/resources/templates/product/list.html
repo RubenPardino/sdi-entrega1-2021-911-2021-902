@@ -32,8 +32,9 @@ $( "#updateButton" ).click(function() { var numberPage = [[${param.page}]]; var 
 				<thead>
 					<tr>
 						<th class="col-md-1" th:text="#{id}">id</th>
+						<th th:text="#{details.title}">Título</th>
 						<th th:text="#{details.description}">Descripción</th>
-						<th th:text="#{details.score}">Puntuación</th>
+						<th th:text="#{details.money}">Precio</th>
 						<th class="col-md-1"></th>
 						<th class="col-md-1"></th>
 						<th class="col-md-1"></th>
@@ -42,8 +43,9 @@ $( "#updateButton" ).click(function() { var numberPage = [[${param.page}]]; var 
 				<tbody>
 					<tr th:each="product : ${productList}">
 						<td th:text="${product.id}">1</td>
+						<td th:text="${product.title}">Ejercicio 1</td>
 						<td th:text="${product.description}">Ejercicio 1</td>
-						<td th:text="${product.score}">10</td>
+						<td th:text="${product.money}">10</td>
 						<td><a th:href="${'/product/details/' + product.id}"
 							th:text="#{details}">detalles</a></td>
 						<td><a sec:authorize="hasRole('ROLE_ESTANDAR')"

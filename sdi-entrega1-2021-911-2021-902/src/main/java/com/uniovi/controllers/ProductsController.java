@@ -96,7 +96,8 @@ public class ProductsController {
 	public String setEdit(Model model, @PathVariable Long id, @ModelAttribute Product Product) {
 		Product original = ProductsService.getProduct(id);
 		// modificar solo score y description
-		original.setScore(Product.getScore());
+		original.setMoney(Product.getMoney());
+		original.setTitle(Product.getTitle());
 		original.setDescription(Product.getDescription());
 		ProductsService.addProduct(original);
 		return "redirect:/product/details/" + id;

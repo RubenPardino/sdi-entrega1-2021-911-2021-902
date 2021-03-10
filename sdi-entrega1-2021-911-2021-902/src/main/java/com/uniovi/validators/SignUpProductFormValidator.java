@@ -19,14 +19,14 @@ public class SignUpProductFormValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 		Product product = (Product) target;
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "description", "Error.empty");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "score", "Error.empty");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "money", "Error.empty");
 
 		if (product.getDescription().length() < 20) {
 			errors.rejectValue("description", "Error.addmark.description.length");
 		}
 
-		if (product.getScore() < 0 || product.getScore() > 10) {
-			errors.rejectValue("score", "Error.addmark.score");
+		if (product.getMoney() < 1 ) {
+			errors.rejectValue("money", "Error.addmark.score");
 		}
 
 	}

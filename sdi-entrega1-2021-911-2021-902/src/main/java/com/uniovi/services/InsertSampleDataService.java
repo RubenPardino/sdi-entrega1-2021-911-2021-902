@@ -24,7 +24,7 @@ public class InsertSampleDataService {
 
 		Set user1Products = new HashSet<Product>() {
 			{
-				add(new Product("Nota A1", 10.0, user1));
+				add(new Product("Coche de juguete",10.0 , "Juguete de madera" , user1));
 
 			}
 		};
@@ -38,7 +38,7 @@ public class InsertSampleDataService {
 
 		Set user2Products = new HashSet<Product>() {
 			{
-				add(new Product("Nota A2", 8.0, user2));
+				add(new Product("television",90.0 , "tv" , user2));
 
 			}
 		};

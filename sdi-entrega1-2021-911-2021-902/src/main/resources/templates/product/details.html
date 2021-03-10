@@ -12,18 +12,21 @@
 
 	<div class="container">
 		<h2>Detalles de la nota</h2>
+		
 		<div class="panel panel-default">
-			<div class="panel-heading">DNI</div>
-			<div class="panel-body" th:text="${product.user.dni}">28276</div>
+			<div class="panel-heading">Título</div>
+			<div class="panel-body" th:text="${product.title}">
+				Ejercicio 1</div>
 		</div>
+		
 		<div class="panel panel-default">
 			<div class="panel-heading">Descripción</div>
 			<div class="panel-body" th:text="${product.description}">
 				Ejercicio 1</div>
 		</div>
 		<div class="panel panel-default">
-			<div class="panel-heading">Puntuación</div>
-			<div class="panel-body" th:text="${product.score}">100</div>
+			<div class="panel-heading">Precio</div>
+			<div class="panel-body" th:text="${product.money}">100</div>
 		</div>
 	</div>
 	<footer th:replace="fragments/footer" />
