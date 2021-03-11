@@ -29,9 +29,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/css/**", "/img/**", "/script/**", "/", "/signup", "/login/**").permitAll()
 				.antMatchers("/product/add").hasAuthority("ROLE_ESTANDAR").antMatchers("/product/edit/*")
 				.hasAuthority("ROLE_ESTANDAR").antMatchers("/product/delete/*").hasAuthority("ROLE_ESTANDAR")
-				.antMatchers("/product/**").hasAnyAuthority("ROLE_ESTANDAR", "ROLE_ESTANDAR", "ROLE_ADMIN")
-				.antMatchers("/user/**").hasAnyAuthority("ROLE_ADMIN").antMatchers("/professor/**").hasAnyAuthority("ROLE_ADMIN")
-				.anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/home").and().logout().permitAll();
+				.antMatchers("/product/**").hasAnyAuthority("ROLE_ESTANDAR", "ROLE_ADMIN").antMatchers("/user/**")
+				.hasAnyAuthority("ROLE_ADMIN").anyRequest().authenticated().and().formLogin().loginPage("/login")
+				.permitAll().defaultSuccessUrl("/home").and().logout().permitAll();
 	}
 
 	@Autowired
