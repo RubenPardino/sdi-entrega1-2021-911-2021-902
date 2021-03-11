@@ -38,7 +38,7 @@ public class ProductsController {
 	@Autowired
 	private SignUpProductFormValidator signUpProductFormValidator;
 
-	@RequestMapping("/product/list")//"/product/myList"
+	@RequestMapping("/product/list") // "/product/myList"
 	public String getList(Model model, Pageable pageable, Principal principal,
 			@RequestParam(value = "", required = false) String searchText) {
 		String email = principal.getName();
@@ -54,7 +54,7 @@ public class ProductsController {
 		model.addAttribute("page", Products);
 		return "product/list";
 	}
-	
+
 	@RequestMapping("/product/myList")
 	public String getMyList(Model model, Pageable pageable, Principal principal,
 			@RequestParam(value = "", required = false) String searchText) {
@@ -74,18 +74,24 @@ public class ProductsController {
 
 	@RequestMapping(value = "/product/add")
 	public String getProduct(Model model) {
-		model.addAttribute("usersList", usersService.getUsers());
+		// model.addAttribute("usersList", usersService.getUsers());
 		model.addAttribute("product", new Product());
 		return "product/add";
 	}
 
 	@RequestMapping(value = "/product/add", method = RequestMethod.POST)
-	public String setProduct(@Validated Product Product, BindingResult result, Model model) {
+	public String setProduct(@Validated Product Product, BindingResult result, Model model, Principal principal) {
 		signUpProductFormValidator.validate(Product, result);
 		if (result.hasErrors()) {
-			model.addAttribute("usersList", usersService.getUsers());
+			// model.addAttribute("usersList", usersService.getUsers());
+
 			return "product/add";
 		}
+		
+		String email = principal.getName();
+		User user = usersService.getUserByEmail(email);
+		Product.setUser(user);
+		
 		ProductsService.addProduct(Product);
 		return "redirect:/product/list";
 	}
