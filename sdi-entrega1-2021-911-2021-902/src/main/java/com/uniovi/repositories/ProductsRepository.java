@@ -24,8 +24,14 @@ public interface ProductsRepository extends CrudRepository<Product, Long> {
 	@Query("SELECT r FROM Product r WHERE (LOWER (r.description) LIKE LOWER(?1) OR LOWER(r.user.name) LIKE LOWER(?1))")
 	Page<Product> searchByDescriptionAndName(Pageable pageable, String searchtext);
 
-	@Query("SELECT r FROM Product r WHERE (LOWER (r.description) LIKE LOWER(?1) OR LOWER(r.user.name) LIKE LOWER(?1)) AND r.user = ?2 ")
-	Page<Product> searchByDescriptionNameAndUser(Pageable pageable, String searchtext, User user);
+	//@Query("SELECT r FROM Product r WHERE (LOWER (r.description) LIKE LOWER(?1) OR LOWER(r.user.name) LIKE LOWER(?1)) AND r.user = ?2 ")
+	//Page<Product> searchByDescriptionNameAndUser(Pageable pageable, String searchtext, User user);
 
+	@Query("SELECT r FROM Product r WHERE (LOWER (r.title) LIKE LOWER(?1)) AND r.user = ?2 ")
+	Page<Product> searchByTitleAndUser(Pageable pageable, String searchtext, User user);
+
+	@Query("SELECT r FROM Product r WHERE (LOWER (r.title) LIKE LOWER(?1))")
+	Page<Product> searchByTitle(Pageable pageable, String searchtext);
+	
 	Page<Product> findAll(Pageable pageable);
 }

@@ -64,14 +64,20 @@ public class ProductsService {
 		return Products;
 	}
 
-	public Page<Product> searchProductsByDescriptionAndNameForUser(Pageable pageable, String searchText, User user) {
+	public Page<Product> searchProductsByTitle(Pageable pageable, String searchText, User user) {
 		Page<Product> Products = new PageImpl<Product>(new LinkedList<Product>());
 		searchText = "%" + searchText + "%";
-		if (user.getRole().equals("ROLE_STUDENT")) {
-			Products = ProductsRepository.searchByDescriptionNameAndUser(pageable, searchText, user);
+		if (user.getRole().equals("ROLE_ESTANDAR") || user.getRole().equals("ROLE_ADMIN")) {
+			Products = ProductsRepository.searchByTitle(pageable, searchText);
 		}
-		if (user.getRole().equals("ROLE_PROFESSOR")) {
-			Products = ProductsRepository.searchByDescriptionAndName(pageable, searchText);
+		return Products;
+	}
+
+	public Page<Product> searchProductsByTitleAndUser(Pageable pageable, String searchText, User user) {
+		Page<Product> Products = new PageImpl<Product>(new LinkedList<Product>());
+		searchText = "%" + searchText + "%";
+		if (user.getRole().equals("ROLE_ESTANDAR") || user.getRole().equals("ROLE_ADMIN")) {
+			Products = ProductsRepository.searchByTitleAndUser(pageable, searchText, user);
 		}
 		return Products;
 	}

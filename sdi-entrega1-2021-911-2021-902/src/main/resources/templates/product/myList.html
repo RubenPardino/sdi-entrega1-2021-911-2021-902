@@ -9,7 +9,7 @@
 
 	<div class="container">
 		<h2 th:text="#{offers.message}"></h2>
-		<form class="navbar-form" action="/product/list">
+		<form class="navbar-form" action="/product/myList">
 			<div class="form-group">
 				<input name="searchText" type="text" class="form-control" size="50"
 					placeholder="Buscar por descripción o nombre del alumno">
@@ -22,12 +22,12 @@
 			th:text="#{update.message}"></button>
 		<script th:inline="javascript"> 
 		/*<![CDATA[*/
-$( "#updateButton" ).click(function() { var numberPage = [[${param.page}]]; var urlUpdate = '/product/list/update'; if (numberPage != null ){ urlUpdate += "?page="+numberPage[0]; } $("#tableMarks").load(urlUpdate);});
+$( "#updateButton" ).click(function() { var numberPage = [[${param.page}]]; var urlUpdate = '/product/myList/update'; if (numberPage != null ){ urlUpdate += "?page="+numberPage[0]; } $("#tableProducts").load(urlUpdate);});
 		/*]]>*/
 </script>
 		<div class="table-responsive">
-			<table class="table table-hover" th:fragment="tableMarks"
-				id="tableMarks">
+			<table class="table table-hover" th:fragment="tableProducts"
+				id="tableProducts">
 				<thead>
 					<tr>
 						<th class="col-md-1">Id</th>
@@ -40,7 +40,7 @@ $( "#updateButton" ).click(function() { var numberPage = [[${param.page}]]; var 
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="product : ${productList}">
+					<tr th:each="product : ${productMyList}">
 						<td th:text="${product.id}">1</td>
 						<td th:text="${product.title}">Ejercicio 1</td>
 						<td th:text="${product.description}">Ejercicio 1</td>

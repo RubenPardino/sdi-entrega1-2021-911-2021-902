@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 import com.uniovi.entities.Product;
 import com.uniovi.entities.User;
 import com.uniovi.services.*;
-import com.uniovi.validators.SignUpFormValidator;
 import com.uniovi.validators.SignUpProductFormValidator;
 
 @Controller
@@ -46,7 +45,7 @@ public class ProductsController {
 		Page<Product> Products = new PageImpl<Product>(new LinkedList<Product>());
 
 		if (searchText != null && !searchText.isEmpty()) {
-			Products = ProductsService.searchProductsByDescriptionAndNameForUser(pageable, searchText, user);
+			Products = ProductsService.searchProductsByTitle(pageable, searchText, user);
 		} else {
 			Products = ProductsService.getProducts(pageable);
 		}
@@ -63,11 +62,11 @@ public class ProductsController {
 		Page<Product> Products = new PageImpl<Product>(new LinkedList<Product>());
 
 		if (searchText != null && !searchText.isEmpty()) {
-			Products = ProductsService.searchProductsByDescriptionAndNameForUser(pageable, searchText, user);
+			Products = ProductsService.searchProductsByTitleAndUser(pageable, searchText, user);
 		} else {
 			Products = ProductsService.getProductsForUser(pageable, user);
 		}
-		model.addAttribute("productList", Products.getContent());
+		model.addAttribute("productMyList", Products.getContent());
 		model.addAttribute("page", Products);
 		return "product/myList";
 	}
@@ -130,11 +129,20 @@ public class ProductsController {
 	public String updateList(Model model, Pageable pageable, Principal principal) {
 		String email = principal.getName();
 		User user = usersService.getUserByEmail(email);
-		Page<Product> Products = ProductsService.getProductsForUser(pageable, user);
+		Page<Product> Products = ProductsService.getProducts(pageable);
 		model.addAttribute("productList", Products.getContent());
 		return "product/list :: tableProducts";
 	}
 
+	
+	@RequestMapping("/product/myList/update")
+	public String updateMyList(Model model, Pageable pageable, Principal principal) {
+		String email = principal.getName();
+		User user = usersService.getUserByEmail(email);
+		Page<Product> Products = ProductsService.getProductsForUser(pageable, user);
+		model.addAttribute("productMyList", Products.getContent());
+		return "product/myList :: tableProducts";
+	}
 //	@RequestMapping(value = "/product/{id}/resend", method = RequestMethod.GET)
 //	public String setResendTrue(Model model, @PathVariable Long id) {
 //		ProductsService.setProductResend(true, id);
