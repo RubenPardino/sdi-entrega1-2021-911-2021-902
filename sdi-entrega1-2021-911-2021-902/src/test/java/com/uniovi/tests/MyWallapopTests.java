@@ -10,6 +10,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import com.uniovi.tests.pageobjects.PO_AddProductView;
 import com.uniovi.tests.pageobjects.PO_HomeView;
 import com.uniovi.tests.pageobjects.PO_LoginView;
 import com.uniovi.tests.pageobjects.PO_Properties;
@@ -111,7 +112,6 @@ public class MyWallapopTests {
 		// Rellenamos el formulario.
 		PO_RegisterView.fillForm(driver, "test@gmail.com", "Jonathan", "Barbon", "123456", "123456");
 		PO_RegisterView.checkKey(driver, "Error.signup.email.duplicate", PO_Properties.getSPANISH());
-		PO_HomeView.clickOption(driver, "logout", "class", "btn btn-primary");
 		// Comprobamos que entramos en la sección privada
 		PO_View.checkElement(driver, "text", "Identificate");
 	}
@@ -137,6 +137,60 @@ public class MyWallapopTests {
 		// Vamos al formulario de registro
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
 		PO_View.checkElement(driver, "text", "Identificate");
+
+	}
+
+	// Mostrar el listado de usuarios y comprobar que se muestran to dos los que
+	// existen en el sistema.
+	@Test
+	public void PR12() {
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario.
+		PO_LoginView.fillForm(driver, "admin@email.com", "admin");
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'users-menu')]/a");
+		elementos.get(0).click();
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'user/list')]");
+		elementos.get(0).click();
+		PO_View.checkElement(driver, "text", "a@gmail.com");
+		PO_View.checkElement(driver, "text", "b@gmail.com");
+
+	}
+
+	// Ir al formulario de alta de oferta, rellenarla con datos válidos y pulsar el
+	// botón Submit. Comprobar que la oferta sale en el listado de ofertas de dicho
+	// usuario
+	@Test
+	public void PR16() {
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario.
+		PO_LoginView.fillForm(driver, "a@gmail.com", "123456");
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
+		elementos.get(0).click();
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/add')]");
+		elementos.get(0).click();
+		PO_AddProductView.fillForm(driver, "Camiseta", "camiseta azul de seda", "20");
+		PO_View.checkElement(driver, "text", "Camiseta");
+
+	}
+
+	// Ir al formulario de alta de oferta, rellenarla con datos inválidos (campo
+	// título vacío) y pulsar el botón Submit. Comprobar que se muestra el mensaje
+	// de campo obligatorio.
+	@Test
+	public void PR17() {
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario.
+		PO_LoginView.fillForm(driver, "a@gmail.com", "123456");
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
+		elementos.get(0).click();
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/add')]");
+		elementos.get(0).click();
+		PO_AddProductView.fillForm(driver, "Cam", "camiseta azul de seda", "20");
+		PO_RegisterView.checkKey(driver, "Error.addmark.title.length", PO_Properties.getSPANISH());
+		PO_AddProductView.fillForm(driver, "Camiseta", "camiseta", "20");
+		PO_RegisterView.checkKey(driver, "Error.addmark.description.length", PO_Properties.getSPANISH());
+		PO_AddProductView.fillForm(driver, "Camiseta", "camiseta azul de seda", "0");
+		PO_RegisterView.checkKey(driver, "Error.addmark.score", PO_Properties.getSPANISH());
 
 	}
 
