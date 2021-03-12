@@ -36,14 +36,6 @@ public class InsertSampleDataService {
 		user2.setPassword("admin");
 		user2.setRole(rolesService.getRoles()[1]);
 
-		Set user2Products = new HashSet<Product>() {
-			{
-				add(new Product("television",90.0 , "tv" , user2));
-
-			}
-		};
-		user2.setProducts(user2Products);
-
 		usersService.addUser(user2);
 		
 		User user3 = new User("b@gmail.com", "Marta", "Fernandez");

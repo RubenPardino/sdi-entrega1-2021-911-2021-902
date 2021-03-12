@@ -12,14 +12,14 @@
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav" sec:authorize="isAuthenticated()">
 				<li><a href="/">Home</a></li>
-				<li id="products-menu" class="dropdown"><a class="dropdown-toggle"
+				<li id="products-menu" class="dropdown" sec:authorize="hasRole('ROLE_ESTANDAR')"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#" th:text="#{offersM.message}"> <span
 						class="caret"></span>
 				</a>
-					<ul class="dropdown-menu">
-						<li sec:authorize="hasRole('ROLE_ESTANDAR')"><a
+					<ul class="dropdown-menu" sec:authorize="hasRole('ROLE_ESTANDAR')">
+						<li><a
 							href="/product/add" th:text="#{addoffers.message}"></a></li>
-						<li><a href="/product/list" th:text="#{listoffers.message}"></a></li>
+						<li ><a href="/product/list" th:text="#{listoffers.message}"></a></li>
 						<li><a href="/product/myList" th:text="#{listMyOffers.message}"></a></li>
 					</ul></li>
 				<li id="users-menu" class="dropdown"
