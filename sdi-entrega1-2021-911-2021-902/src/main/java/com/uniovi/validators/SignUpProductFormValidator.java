@@ -18,10 +18,11 @@ public class SignUpProductFormValidator implements Validator {
 	@Override
 	public void validate(Object target, Errors errors) {
 		Product product = (Product) target;
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "description", "Error.empty");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "money", "Error.empty");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "title", "Error.empty");
 
+		if (product.getTitle().length() < 5) {
+			errors.rejectValue("title", "Error.addmark.title.length");
+		}
+		
 		if (product.getDescription().length() < 20) {
 			errors.rejectValue("description", "Error.addmark.description.length");
 		}
