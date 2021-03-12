@@ -104,7 +104,7 @@ public class ProductsController {
 	@RequestMapping("/product/delete/{id}")
 	public String deleteProduct(@PathVariable Long id) {
 		ProductsService.deleteProduct(id);
-		return "redirect:/product/list";
+		return "redirect:/product/myList";
 	}
 
 	@RequestMapping(value = "/product/edit/{id}")

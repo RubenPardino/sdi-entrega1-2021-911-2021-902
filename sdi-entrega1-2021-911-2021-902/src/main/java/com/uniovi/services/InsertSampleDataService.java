@@ -24,7 +24,8 @@ public class InsertSampleDataService {
 
 		Set user1Products = new HashSet<Product>() {
 			{
-				add(new Product("Coche de juguete",10.0 , "Juguete de madera" , user1));
+				add(new Product("Coche de juguete", 10.0, "Juguete de madera", user1));
+				add(new Product("Calendario", 3.0, "año 2021", user1));
 
 			}
 		};
@@ -37,14 +38,14 @@ public class InsertSampleDataService {
 		user2.setRole(rolesService.getRoles()[1]);
 
 		usersService.addUser(user2);
-		
+
 		User user3 = new User("b@gmail.com", "Marta", "Fernandez");
 		user3.setPassword("123456");
 		user3.setRole(rolesService.getRoles()[0]);
 
 		Set user3Products = new HashSet<Product>() {
 			{
-				add(new Product("Figura de Playmobil",10.0 , "Juguete de plástico" , user3));
+				add(new Product("Figura de Playmobil", 10.0, "Juguete de plástico", user3));
 
 			}
 		};

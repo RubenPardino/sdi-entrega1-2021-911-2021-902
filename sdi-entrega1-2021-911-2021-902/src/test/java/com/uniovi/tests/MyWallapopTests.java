@@ -2,28 +2,50 @@ package com.uniovi.tests;
 
 import static org.junit.Assert.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.*;
+import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import com.uniovi.entities.Product;
+import com.uniovi.entities.User;
+import com.uniovi.repositories.UsersRepository;
+import com.uniovi.services.RolesService;
+import com.uniovi.services.UsersService;
 import com.uniovi.tests.pageobjects.PO_AddProductView;
 import com.uniovi.tests.pageobjects.PO_HomeView;
 import com.uniovi.tests.pageobjects.PO_LoginView;
+import com.uniovi.tests.pageobjects.PO_PaginationView;
 import com.uniovi.tests.pageobjects.PO_Properties;
 import com.uniovi.tests.pageobjects.PO_RegisterView;
 import com.uniovi.tests.pageobjects.PO_View;
 import com.uniovi.tests.util.SeleniumUtils;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import org.junit.runners.MethodSorters;
 
 //Ordenamos las pruebas por el nombre del métodos
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class MyWallapopTests {
+	@Autowired
+	private UsersService usersService;
+
+	@Autowired
+	private RolesService rolesService;
+
+	@Autowired
+	private UsersRepository usersRepository;
 
 	// En Windows (Debe ser la versión 65.0.1 y desactivar las actualizacioens
 	// automáticas)):
@@ -48,7 +70,47 @@ public class MyWallapopTests {
 	// Antes de cada prueba se navega al URL home de la aplicación
 	@Before
 	public void setUp() {
+		initDB();
 		driver.navigate().to(URL);
+	}
+
+	private void initDB() {
+		// Borramostodaslasentidades.
+		usersRepository.deleteAll();// Ahoralasvolvemosa crear
+		User user1 = new User("a@gmail.com", "Pedro", "Díaz");
+		user1.setPassword("123456");
+		user1.setRole(rolesService.getRoles()[0]);
+
+		Set user1Products = new HashSet<Product>() {
+			{
+				add(new Product("Coche de juguete", 10.0, "Juguete de madera", user1));
+				add(new Product("Calendario", 3.0, "año 2021", user1));
+
+			}
+		};
+		user1.setProducts(user1Products);
+
+		usersService.addUser(user1);
+
+		User user2 = new User("admin@email.com", "", "");
+		user2.setPassword("admin");
+		user2.setRole(rolesService.getRoles()[1]);
+
+		usersService.addUser(user2);
+
+		User user3 = new User("b@gmail.com", "Marta", "Fernandez");
+		user3.setPassword("123456");
+		user3.setRole(rolesService.getRoles()[0]);
+
+		Set user3Products = new HashSet<Product>() {
+			{
+				add(new Product("Figura de Playmobil", 10.0, "Juguete de plástico", user3));
+
+			}
+		};
+		user3.setProducts(user3Products);
+
+		usersService.addUser(user3);
 	}
 
 	// Después de cada prueba se borran las cookies del navegador
@@ -69,6 +131,7 @@ public class MyWallapopTests {
 	// Registro de Usuario con datos válidos
 	@Test
 	public void PR01() {
+		initDB();
 		// Vamos al formulario de registro
 		PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
 		// Rellenamos el formulario.
@@ -83,6 +146,8 @@ public class MyWallapopTests {
 	// vacíos)
 	@Test
 	public void PR02() {
+		initDB();
+
 		// Vamos al formulario de registro
 		PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
 		// Rellenamos el formulario.
@@ -96,10 +161,12 @@ public class MyWallapopTests {
 	// Registro de Usuario con datos inválidos (repetición de contraseña inválida)
 	@Test
 	public void PR03() {
+		initDB();
+
 		// Vamos al formulario de registro
 		PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
 		// Rellenamos el formulario.
-		PO_RegisterView.fillForm(driver, "test2@gmail.com", "Jonathan", "Barbon", "123456", "123457");
+		PO_RegisterView.fillForm(driver, "test@gmail.com", "Jonathan", "Barbon", "123456", "123457");
 		PO_RegisterView.checkKey(driver, "Error.signup.passwordConfirm.coincidence", PO_Properties.getSPANISH());
 
 	}
@@ -107,10 +174,12 @@ public class MyWallapopTests {
 	// Registro de Usuario con datos inválidos (email existente).
 	@Test
 	public void PR04() {
+		initDB();
+
 		// Vamos al formulario de registro
 		PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
 		// Rellenamos el formulario.
-		PO_RegisterView.fillForm(driver, "test@gmail.com", "Jonathan", "Barbon", "123456", "123456");
+		PO_RegisterView.fillForm(driver, "a@gmail.com", "Jonathan", "Barbon", "123456", "123456");
 		PO_RegisterView.checkKey(driver, "Error.signup.email.duplicate", PO_Properties.getSPANISH());
 		// Comprobamos que entramos en la sección privada
 		PO_View.checkElement(driver, "text", "Identificate");
@@ -120,6 +189,8 @@ public class MyWallapopTests {
 	// página de inicio de sesión (Login)
 	@Test
 	public void PR10() {
+		initDB();
+
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
 		// Rellenamos el formulario.
 		PO_LoginView.fillForm(driver, "a@gmail.com", "123456");
@@ -134,6 +205,8 @@ public class MyWallapopTests {
 	// autenticado.
 	@Test
 	public void PR11() {
+		initDB();
+
 		// Vamos al formulario de registro
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
 		PO_View.checkElement(driver, "text", "Identificate");
@@ -144,6 +217,8 @@ public class MyWallapopTests {
 	// existen en el sistema.
 	@Test
 	public void PR12() {
+		initDB();
+
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
 		// Rellenamos el formulario.
 		PO_LoginView.fillForm(driver, "admin@email.com", "admin");
@@ -161,6 +236,8 @@ public class MyWallapopTests {
 	// usuario
 	@Test
 	public void PR16() {
+		initDB();
+
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
 		// Rellenamos el formulario.
 		PO_LoginView.fillForm(driver, "a@gmail.com", "123456");
@@ -178,6 +255,8 @@ public class MyWallapopTests {
 	// de campo obligatorio.
 	@Test
 	public void PR17() {
+		initDB();
+
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
 		// Rellenamos el formulario.
 		PO_LoginView.fillForm(driver, "a@gmail.com", "123456");
@@ -194,9 +273,75 @@ public class MyWallapopTests {
 
 	}
 
+	// Mostrar el listado de ofertas para dicho usuario y comprobar que se muestran
+	// todas los que existen para este usuario.
+	@Test
+	public void PR18() {
+		initDB();
+
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario.
+		PO_LoginView.fillForm(driver, "a@gmail.com", "123456");
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
+		elementos.get(0).click();
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/myList')]");
+		elementos.get(0).click();
+		PO_View.checkElement(driver, "text", "Coche de juguete");
+		PO_View.checkElement(driver, "text", "Calendario");
+
+	}
+
+	// Ir a la lista de ofertas, borrar la primera oferta de la lista, comprobar
+	// que la lista se actualiza y que la oferta desaparece
+	@Test
+	public void PR19() {
+		initDB();
+
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario.
+		PO_LoginView.fillForm(driver, "a@gmail.com", "123456");
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
+		elementos.get(0).click();
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/myList')]");
+		elementos.get(0).click();
+		String tituloAnt = PO_View.checkElement(driver, "free", "//table/tbody/tr/td[2]").get(0).getText();
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/delete')]");
+		elementos.get(0).click();
+		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, tituloAnt, PO_View.getTimeout());
+
+	}
+
+	// Ir a la lista de ofertas, borrar la última oferta de la lista, comprobar que
+	// la lista se actualiza y que la oferta desaparece
+	@Test
+	public void PR20() {
+		initDB();
+
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario.
+		PO_LoginView.fillForm(driver, "a@gmail.com", "123456");
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
+		elementos.get(0).click();
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/myList')]");
+		elementos.get(0).click();
+		PO_PaginationView.goToLastPage(driver);
+		elementos = PO_View.checkElement(driver, "free", "//table/tbody/tr/td[2]");
+		String tituloAnt = elementos.get(elementos.size() - 1).getText();
+
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/delete')]");
+		SeleniumUtils.esperarSegundos(driver, 6);
+
+		elementos.get(elementos.size() - 1).click();
+		SeleniumUtils.esperarSegundos(driver, 6);
+		PO_PaginationView.goToLastPage(driver);
+		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, tituloAnt, PO_View.getTimeout());
+	}
+
 	// Registro de Usuario con datos válidos
 	@Test
 	public void PR28() {
+		initDB();
+
 		// Intentar acceder sin estar autenticado a la opción de listado de usuarios del
 		// administrador. Se deberá volver al formulario de login
 
@@ -209,6 +354,8 @@ public class MyWallapopTests {
 	// propias de un usuario estándar. Se deberá volver al formulario de login
 	@Test
 	public void PR29() {
+		initDB();
+
 		// Vamos al formulario de registro
 		driver.navigate().to("http://localhost:8090/product/myList");
 		PO_View.checkElement(driver, "text", "Identificate");
@@ -220,6 +367,8 @@ public class MyWallapopTests {
 	// prohibida
 	@Test
 	public void PR30() {
+		initDB();
+
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
 		// Rellenamos el formulario.
 		PO_LoginView.fillForm(driver, "a@gmail.com", "123456");
