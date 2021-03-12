@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.uniovi.entities.Product;
 import com.uniovi.entities.User;
 import com.uniovi.repositories.UsersRepository;
+import com.uniovi.services.InsertSampleDataService;
 import com.uniovi.services.RolesService;
 import com.uniovi.services.UsersService;
 import com.uniovi.tests.pageobjects.PO_AddProductView;
@@ -38,11 +39,9 @@ import org.junit.runners.MethodSorters;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class MyWallapopTests {
-	@Autowired
-	private UsersService usersService;
 
 	@Autowired
-	private RolesService rolesService;
+	private InsertSampleDataService isds;
 
 	@Autowired
 	private UsersRepository usersRepository;
@@ -77,40 +76,7 @@ public class MyWallapopTests {
 	private void initDB() {
 		// Borramostodaslasentidades.
 		usersRepository.deleteAll();// Ahoralasvolvemosa crear
-		User user1 = new User("a@gmail.com", "Pedro", "Díaz");
-		user1.setPassword("123456");
-		user1.setRole(rolesService.getRoles()[0]);
-
-		Set user1Products = new HashSet<Product>() {
-			{
-				add(new Product("Coche de juguete", 10.0, "Juguete de madera", user1));
-				add(new Product("Calendario", 3.0, "año 2021", user1));
-
-			}
-		};
-		user1.setProducts(user1Products);
-
-		usersService.addUser(user1);
-
-		User user2 = new User("admin@email.com", "", "");
-		user2.setPassword("admin");
-		user2.setRole(rolesService.getRoles()[1]);
-
-		usersService.addUser(user2);
-
-		User user3 = new User("b@gmail.com", "Marta", "Fernandez");
-		user3.setPassword("123456");
-		user3.setRole(rolesService.getRoles()[0]);
-
-		Set user3Products = new HashSet<Product>() {
-			{
-				add(new Product("Figura de Playmobil", 10.0, "Juguete de plástico", user3));
-
-			}
-		};
-		user3.setProducts(user3Products);
-
-		usersService.addUser(user3);
+		isds.init();
 	}
 
 	// Después de cada prueba se borran las cookies del navegador
@@ -329,10 +295,7 @@ public class MyWallapopTests {
 		String tituloAnt = elementos.get(elementos.size() - 1).getText();
 
 		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/delete')]");
-		SeleniumUtils.esperarSegundos(driver, 6);
-
 		elementos.get(elementos.size() - 1).click();
-		SeleniumUtils.esperarSegundos(driver, 6);
 		PO_PaginationView.goToLastPage(driver);
 		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, tituloAnt, PO_View.getTimeout());
 	}
