@@ -4,6 +4,17 @@ html {
 	min-height: 100%;
 }
 
+nav div {
+	background: #01fed8;
+}
+
+nav a {
+	color: black !important;
+}
+
+nav a:focus {
+	background: white !important;
+}
 
 body {
 	/* Margin bottom by footer height */
