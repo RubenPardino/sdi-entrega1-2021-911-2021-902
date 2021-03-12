@@ -26,6 +26,7 @@ import com.uniovi.tests.pageobjects.PO_LoginView;
 import com.uniovi.tests.pageobjects.PO_PaginationView;
 import com.uniovi.tests.pageobjects.PO_Properties;
 import com.uniovi.tests.pageobjects.PO_RegisterView;
+import com.uniovi.tests.pageobjects.PO_SearchView;
 import com.uniovi.tests.pageobjects.PO_View;
 import com.uniovi.tests.util.SeleniumUtils;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -298,6 +299,45 @@ public class MyWallapopTests {
 		elementos.get(elementos.size() - 1).click();
 		PO_PaginationView.goToLastPage(driver);
 		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, tituloAnt, PO_View.getTimeout());
+	}
+
+	// Hacer una búsqueda con el campo vacío y comprobar que se muestra la página
+	// que corresponde con el listado de las ofertas existentes en el sistema
+	@Test
+	public void PR21() {
+		initDB();
+
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario.
+		PO_LoginView.fillForm(driver, "a@gmail.com", "123456");
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
+		elementos.get(0).click();
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/list')]");
+		elementos.get(0).click();
+		PO_SearchView.fillForm(driver, "");
+		PO_View.checkElement(driver, "text", "Coche de juguete");
+		PO_View.checkElement(driver, "text", "Calendario");
+		PO_View.checkElement(driver, "text", "Figura de Playmobil");
+
+	}
+
+	// Hacer una búsqueda escribiendo en el campo un texto que no exista y comprobar
+	// que se muestra la página que corresponde, con la lista de ofertas vacía
+	@Test
+	public void PR22() {
+		initDB();
+
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario.
+		PO_LoginView.fillForm(driver, "a@gmail.com", "123456");
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
+		elementos.get(0).click();
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/list')]");
+		elementos.get(0).click();
+		PO_SearchView.fillForm(driver, "noexiste");
+		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "Coche de juguete", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "Calendario", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "Figura de Playmobil", PO_View.getTimeout());
 	}
 
 	// Registro de Usuario con datos válidos
