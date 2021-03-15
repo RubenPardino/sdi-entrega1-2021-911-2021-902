@@ -146,14 +146,12 @@ public class ProductsController {
 		return "product/myList :: tableProducts";
 	}
 	@RequestMapping(value = "/product/{id}/vendido", method = RequestMethod.GET)
-	public String setResendTrue(Model model, @PathVariable Long id) {
-		ProductsService.setProductVendido(true, id);
+	public String setVendidoTrue(Model model, Principal principal, @PathVariable Long id) { //falta comprobación de dinero
+		ProductsService.getProduct(id);
+		String email = principal.getName();
+		User user = usersService.getUserByEmail(email);
+		ProductsService.setProductVendido(id);
 		return "redirect:/product/list";
 	}
 
-	@RequestMapping(value = "/product/{id}/novendido", method = RequestMethod.GET)
-	public String setResendFalse(Model model, @PathVariable Long id) {
-		ProductsService.setProductVendido(false, id);
-		return "redirect:/product/list";
-	}
 }

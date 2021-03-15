@@ -45,7 +45,8 @@ public class InsertSampleDataService {
 
 		Set user3Products = new HashSet<Product>() {
 			{
-				add(new Product("Figura de Playmobil", 10.0, "Juguete de plástico", user3));
+				add(new Product("Figura de Playmobil", 150.0, "Juguete de plástico", user3));
+				add(new Product("Figura de Lego", 18.0, "Juguete de plástico", user3));
 
 			}
 		};
