@@ -6,7 +6,7 @@
 
 	<!-- Barra de Navegación superior -->
 	<nav th:replace="fragments/nav" />
-	
+
 
 	<div class="container">
 		<h2 th:text="#{offers.message}"></h2>
@@ -15,10 +15,11 @@
 				<input name="searchText" type="text" class="form-control" size="50"
 					placeholder="Buscar por descripción o nombre del alumno">
 			</div>
-			<button type="submit" class="btn btn-default"th:text="#{search.message}"></button>
+			<button type="submit" class="btn btn-default"
+				th:text="#{search.message}"></button>
 		</form>
-		
-		<span th:replace="fragments/emailMoney" ></span>
+
+		<span th:replace="fragments/emailMoney"></span>
 
 		<p th:text="#{offerslist.message}"></p>
 		<button type="button" id="updateButton" class="btn btn-default"
@@ -29,6 +30,7 @@ $( "#updateButton" ).click(function() { var numberPage = [[${param.page}]]; var 
 		/*]]>*/
 </script>
 		<div class="table-responsive">
+			<span class="text-danger" th:if="${error != null}" th:text="${error}" />
 			<table class="table table-hover" th:fragment="tableProducts"
 				id="tableProducts">
 				<thead>
@@ -54,13 +56,13 @@ $( "#updateButton" ).click(function() { var numberPage = [[${param.page}]]; var 
 							th:href="${'/mark/edit/' + mark.id}" th:text="#{modify.message}"></a>
 							<div>
 								<div th:if="${product.vendido}">
-									<button type="button"
-										class="btn btn-info" th:text="#{sold.message}"></button>
+									<button type="button" class="btn btn-info"
+										th:text="#{sold.message}"></button>
 								</div>
-								<div th:unless="${product.vendido}" >
+								<div th:unless="${product.vendido}">
 									<button type="button" th:id="${'commprarButton' + product.id}"
- 									class="btn btn-default" th:text="#{buy.message}"></button>
- 									<script th:inline="javascript">
+										class="btn btn-default" th:text="#{buy.message}"></button>
+									<script th:inline="javascript">
  									/*<![CDATA[*/
  									 $( "#commprarButton[[${product.id}]]" ).click(function() {
  									 	$.get( "/product/[[${product.id}]]/vendido", function( data ) {

@@ -8,6 +8,8 @@ import java.util.Set;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +26,8 @@ import com.uniovi.validators.SignUpProductFormValidator;
 
 @Controller
 public class ProductsController {
+	@Autowired
+	private MessageSource messageSource;
 
 	@Autowired
 	private HttpSession httpSession;
@@ -88,11 +92,11 @@ public class ProductsController {
 
 			return "product/add";
 		}
-		
+
 		String email = principal.getName();
 		User user = usersService.getUserByEmail(email);
 		Product.setUser(user);
-		
+
 		ProductsService.addProduct(Product);
 		return "redirect:/product/list";
 	}
@@ -135,8 +139,9 @@ public class ProductsController {
 		model.addAttribute("productList", Products.getContent());
 		return "product/list :: tableProducts";
 	}
-
 	
+
+
 	@RequestMapping("/product/myList/update")
 	public String updateMyList(Model model, Pageable pageable, Principal principal) {
 		String email = principal.getName();
@@ -145,12 +150,26 @@ public class ProductsController {
 		model.addAttribute("productMyList", Products.getContent());
 		return "product/myList :: tableProducts";
 	}
+
+	
 	@RequestMapping(value = "/product/{id}/vendido", method = RequestMethod.GET)
-	public String setVendidoTrue(Model model, Principal principal, @PathVariable Long id) { //falta comprobación de dinero
-		ProductsService.getProduct(id);
+	public String setVendidoTrue(Model model, Principal principal, @PathVariable Long id, String error) {
+		Product p = ProductsService.getProduct(id);
+		Double money = p.getMoney();
+
 		String email = principal.getName();
 		User user = usersService.getUserByEmail(email);
-		ProductsService.setProductVendido(id);
+		Double dineroCuenta = user.getMoney();
+
+		if (dineroCuenta < money) {
+			model.addAttribute("error", messageSource.getMessage("Error.buy.no.money", null, LocaleContextHolder.getLocale()));
+		}
+
+		else {
+			ProductsService.updateMoney(id, money, user, dineroCuenta);
+			model.addAttribute("user", user);
+		}
+
 		return "redirect:/product/list";
 	}
 
