@@ -45,7 +45,8 @@ public class UsersController {
 
 	@Autowired
 	private SignUpFormValidator signUpFormValidator;
-
+	
+	
 	@RequestMapping("/user/list")
 	public String getListado(Model model, Pageable pageable,
 			@RequestParam(value = "", required = false) String searchText) {

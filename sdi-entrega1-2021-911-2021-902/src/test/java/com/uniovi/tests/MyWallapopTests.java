@@ -75,8 +75,9 @@ public class MyWallapopTests {
 	}
 
 	private void initDB() {
-		// Borramostodaslasentidades.
-		usersRepository.deleteAll();// Ahoralasvolvemosa crear
+		// Borramos todas las entidades.
+		usersRepository.deleteAll();
+		// Ahora las volvemos a crear
 		isds.init();
 	}
 
@@ -149,7 +150,75 @@ public class MyWallapopTests {
 		PO_RegisterView.fillForm(driver, "a@gmail.com", "Jonathan", "Barbon", "123456", "123456");
 		PO_RegisterView.checkKey(driver, "Error.signup.email.duplicate", PO_Properties.getSPANISH());
 		// Comprobamos que entramos en la sección privada
-		PO_View.checkElement(driver, "text", "Identificate");
+		PO_RegisterView.checkElement(driver, "text", "Identificate");
+	}
+
+	// Inicio de sesión con datos válidos (administrador)
+	@Test
+	public void PR05() {
+		initDB();
+
+		// Vamos al formulario de registro
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario.
+		PO_LoginView.fillForm(driver, "admin@email.com", "admin");
+		PO_View.checkElement(driver, "text", "Bienvenidos a la pagina principal");
+
+	}
+
+	// Inicio de sesión con datos válidos (usuario estándar
+	@Test
+	public void PR06() {
+		initDB();
+
+		// Vamos al formulario de registro
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario.
+		PO_LoginView.fillForm(driver, "a@gmail.com", "123456");
+		PO_LoginView.checkElement(driver, "text", "Bienvenidos a la pagina principal");
+
+	}
+
+	// Inicio de sesión con datos inválidos (usuario estándar, campo email y
+	// contraseña vacíos
+	@Test
+	public void PR07() {
+		initDB();
+
+		// Vamos al formulario de registro
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario.
+		PO_LoginView.fillForm(driver, "", "");
+		PO_RegisterView.checkKey(driver, "Error.login", PO_Properties.getSPANISH());
+
+	}
+
+	// Inicio de sesión con datos válidos (usuario estándar, email existente, pero
+	// contraseña incorrecta).
+	@Test
+	public void PR08() {
+		initDB();
+
+		// Vamos al formulario de registro
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario.
+		PO_LoginView.fillForm(driver, "a@gmail.com", "1234567");
+		PO_RegisterView.checkKey(driver, "Error.login", PO_Properties.getSPANISH());
+
+	}
+
+	// Inicio de sesión con datos inválidos (usuario estándar, email no existente en
+	// la aplicación).
+	@Test
+	public void PR09() {
+		initDB();
+
+		// Vamos al formulario de registro
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario.
+		PO_LoginView.fillForm(driver, "noexiste@gmail.com", "123456");
+		PO_RegisterView.checkKey(driver, "Error.login", PO_Properties.getSPANISH());
+
 	}
 
 	// Hacer click en la opción de salir de sesión y comprobar que se redirige a la
