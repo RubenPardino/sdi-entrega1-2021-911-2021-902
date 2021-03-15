@@ -1,0 +1,4 @@
+<!-- emailMoney.html -->
+<span th:text="#{authenticated.message}"> </span>
+<span sec:authentication="principal.username" th:inline="text"> </span>
+<span th:text="${user.money}"> </span> <span>€</span>

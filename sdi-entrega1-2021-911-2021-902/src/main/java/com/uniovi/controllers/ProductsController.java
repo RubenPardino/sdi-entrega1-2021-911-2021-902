@@ -49,6 +49,7 @@ public class ProductsController {
 		} else {
 			Products = ProductsService.getProducts(pageable);
 		}
+		model.addAttribute("user", user);
 		model.addAttribute("productList", Products.getContent());
 		model.addAttribute("page", Products);
 		return "product/list";
@@ -66,6 +67,7 @@ public class ProductsController {
 		} else {
 			Products = ProductsService.getProductsForUser(pageable, user);
 		}
+		model.addAttribute("user", user);
 		model.addAttribute("productMyList", Products.getContent());
 		model.addAttribute("page", Products);
 		return "product/myList";
