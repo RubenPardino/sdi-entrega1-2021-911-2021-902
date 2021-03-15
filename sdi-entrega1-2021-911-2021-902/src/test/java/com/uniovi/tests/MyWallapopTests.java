@@ -216,7 +216,7 @@ public class MyWallapopTests {
 		// Vamos al formulario de registro
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
 		// Rellenamos el formulario.
-		PO_LoginView.fillForm(driver, "noexiste@gmail.com", "123456");
+		PO_LoginView.fillForm(driver, "noexiste@email.com", "123456");
 		PO_RegisterView.checkKey(driver, "Error.login", PO_Properties.getSPANISH());
 
 	}
