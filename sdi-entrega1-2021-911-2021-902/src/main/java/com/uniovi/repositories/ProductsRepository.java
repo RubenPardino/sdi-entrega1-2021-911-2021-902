@@ -15,8 +15,8 @@ import com.uniovi.entities.User;
 public interface ProductsRepository extends CrudRepository<Product, Long> {
 	@Modifying
 	@Transactional
-	@Query("UPDATE Product SET resend = ?1 WHERE id = ?2")
-	void updateResend(Boolean resend, Long id);
+	@Query("UPDATE Product SET vendido = ?1 WHERE id = ?2")
+	void updateVendido(Boolean vendido, Long id);
 
 	@Query("SELECT r FROM Product r WHERE r.user = ?1 ORDER BY r.id ASC ")
 	Page<Product> findAllByUser(Pageable pageable, User user);

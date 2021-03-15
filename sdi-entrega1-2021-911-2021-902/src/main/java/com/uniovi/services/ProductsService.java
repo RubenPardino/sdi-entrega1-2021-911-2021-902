@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.uniovi.entities.Product;
@@ -49,14 +51,14 @@ public class ProductsService {
 		return obtainedProduct;
 	}
 
-//	public void setProductResend(boolean revised, Long id) {
-//		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//		String dni = auth.getName();
-//		Product Product = ProductsRepository.findById(id).get();
-//		if (Product.getUser().getDni().equals(dni)) {
-//			ProductsRepository.updateResend(revised, id);
-//		}
-//	}
+	public void setProductVendido(boolean vendido, Long id) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String email = auth.getName();
+		Product Product = ProductsRepository.findById(id).get();
+		if (Product.getUser().getEmail().equals(email)) {
+			ProductsRepository.updateVendido(vendido, id);
+		}
+	}
 
 	public Page<Product> getProductsForUser(Pageable pageable, User user) {
 		Page<Product> Products = new PageImpl<Product>(new LinkedList<Product>());

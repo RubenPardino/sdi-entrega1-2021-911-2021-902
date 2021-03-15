@@ -13,6 +13,7 @@ public class Product {
 	private LocalDate date;
 	private Double money;
 	private String description;
+	private Boolean vendido = false;
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")

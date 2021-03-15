@@ -145,15 +145,15 @@ public class ProductsController {
 		model.addAttribute("productMyList", Products.getContent());
 		return "product/myList :: tableProducts";
 	}
-//	@RequestMapping(value = "/product/{id}/resend", method = RequestMethod.GET)
-//	public String setResendTrue(Model model, @PathVariable Long id) {
-//		ProductsService.setProductResend(true, id);
-//		return "redirect:/product/list";
-//	}
-//
-//	@RequestMapping(value = "/product/{id}/noresend", method = RequestMethod.GET)
-//	public String setResendFalse(Model model, @PathVariable Long id) {
-//		ProductsService.setProductResend(false, id);
-//		return "redirect:/product/list";
-//	}
+	@RequestMapping(value = "/product/{id}/vendido", method = RequestMethod.GET)
+	public String setResendTrue(Model model, @PathVariable Long id) {
+		ProductsService.setProductVendido(true, id);
+		return "redirect:/product/list";
+	}
+
+	@RequestMapping(value = "/product/{id}/novendido", method = RequestMethod.GET)
+	public String setResendFalse(Model model, @PathVariable Long id) {
+		ProductsService.setProductVendido(false, id);
+		return "redirect:/product/list";
+	}
 }
