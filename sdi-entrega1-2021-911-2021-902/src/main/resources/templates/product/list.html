@@ -50,6 +50,32 @@ $( "#updateButton" ).click(function() { var numberPage = [[${param.page}]]; var 
 						<td th:text="${product.money}">10</td>
 						<td><a th:href="${'/product/details/' + product.id}"
 							th:text="#{details.message}">detalles</a></td>
+						<td><a sec:authorize="hasRole('ROLE_PROFESSOR')"
+							th:href="${'/mark/edit/' + mark.id}" th:text="#{modify.message}"></a>
+							<div>
+								<div th:if="${product.vendido}">
+									<button type="button"
+										class="btn btn-info" th:text="#{sold.message}"></button>
+								</div>
+								<div th:unless="${product.vendido}" >
+									<button type="button" th:id="${'commprarButton' + product.id}"
+ 									class="btn btn-default" th:text="#{buy.message}"></button>
+ 									<script th:inline="javascript">
+ 									/*<![CDATA[*/
+ 									 $( "#commprarButton[[${product.id}]]" ).click(function() {
+ 									 	$.get( "/product/[[${product.id}]]/vendido", function( data ) {
+ 									 	var numberPage = [[${param.page}]];
+ 									 	var urlUpdate = '/product/list/update';
+ 									 	if ( numberPage != null ){
+ 											urlUpdate += "?page="+numberPage[0];
+ 									 	}
+ 										 $("#tableProducts").load(urlUpdate);
+ 									 	});
+ 									 });
+ 									 /*]]>*/
+  									</script>
+								</div>
+							</div></td>
 					</tr>
 				</tbody>
 			</table>

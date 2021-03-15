@@ -51,12 +51,12 @@ public class ProductsService {
 		return obtainedProduct;
 	}
 
-	public void setProductVendido(boolean vendido, Long id) {
+	public void setProductVendido(Long id) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String email = auth.getName();
 		Product Product = ProductsRepository.findById(id).get();
-		if (Product.getUser().getEmail().equals(email)) {
-			ProductsRepository.updateVendido(vendido, id);
+		if (!Product.getUser().getEmail().equals(email)) {
+			ProductsRepository.updateVendido(true, id);
 		}
 	}
 
