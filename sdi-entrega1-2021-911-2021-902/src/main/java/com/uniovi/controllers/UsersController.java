@@ -2,8 +2,11 @@ package com.uniovi.controllers;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +30,9 @@ import com.uniovi.validators.SignUpFormValidator;
 
 @Controller
 public class UsersController {
+
+	@Autowired
+	private MessageSource messageSource;
 
 	@Autowired
 	private RolesService rolesService;
@@ -61,12 +67,12 @@ public class UsersController {
 		return "user/details";
 	}
 
-	@RequestMapping("/user/delete/{id}")///user/confirmDelete
+	@RequestMapping("/user/delete/{id}") /// user/confirmDelete
 	public String delete(@PathVariable Long id) {
 		usersService.manageDeleteUser(id);
 		return "redirect:/user/list";
 	}
-	
+
 	@RequestMapping("/user/confirmDelete")
 	public String confirmDelete() {
 		usersService.confirmDelete();
@@ -110,7 +116,15 @@ public class UsersController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(Model model) {
+	public String login(Model model, String error, String logout) {
+
+		if (error != null) {
+			model.addAttribute("error", messageSource.getMessage("Error.login", null, LocaleContextHolder.getLocale()));
+		}
+
+		if (logout != null) {
+			model.addAttribute("logout", messageSource.getMessage("Login.logout", null, LocaleContextHolder.getLocale()));
+		}
 		return "login";
 	}
 
