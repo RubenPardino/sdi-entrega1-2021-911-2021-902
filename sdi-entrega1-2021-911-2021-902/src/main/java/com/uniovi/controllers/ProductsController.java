@@ -139,8 +139,6 @@ public class ProductsController {
 		model.addAttribute("productList", Products.getContent());
 		return "product/list :: tableProducts";
 	}
-	
-
 
 	@RequestMapping("/product/myList/update")
 	public String updateMyList(Model model, Pageable pageable, Principal principal) {
@@ -151,23 +149,17 @@ public class ProductsController {
 		return "product/myList :: tableProducts";
 	}
 
-	
 	@RequestMapping(value = "/product/{id}/vendido", method = RequestMethod.GET)
 	public String setVendidoTrue(Model model, Principal principal, @PathVariable Long id, String error) {
-		Product p = ProductsService.getProduct(id);
-		Double money = p.getMoney();
 
-		String email = principal.getName();
-		User user = usersService.getUserByEmail(email);
-		Double dineroCuenta = user.getMoney();
-
-		if (dineroCuenta < money) {
-			model.addAttribute("error", messageSource.getMessage("Error.buy.no.money", null, LocaleContextHolder.getLocale()));
+		if (ProductsService.noPuedeComprar(id, principal)) {
+			model.addAttribute("error",
+					messageSource.getMessage("Error.buy.no.money", null, LocaleContextHolder.getLocale()));
 		}
 
 		else {
-			ProductsService.updateMoney(id, money, user, dineroCuenta);
-			model.addAttribute("user", user);
+			ProductsService.updateMoney(id, principal);
+			// model.addAttribute("user", user);
 		}
 
 		return "redirect:/product/list";

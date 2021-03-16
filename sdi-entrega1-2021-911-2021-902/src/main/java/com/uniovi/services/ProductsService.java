@@ -1,5 +1,6 @@
 package com.uniovi.services;
 
+import java.security.Principal;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
@@ -25,6 +26,9 @@ public class ProductsService {
 
 	@Autowired
 	private ProductsRepository ProductsRepository;
+
+	@Autowired
+	private UsersService usersService;
 
 	@Autowired
 	private HttpSession httpSession;
@@ -63,13 +67,30 @@ public class ProductsService {
 		}
 	}
 
-	public void updateMoney(Long id, Double money, User user, Double dineroCuenta) {
+	public void updateMoney(Long id, Principal principal) {
+		Product p = getProduct(id);
+		Double money = p.getMoney();
+		String email = principal.getName();
+		User user = usersService.getUserByEmail(email);
+		Double dineroCuenta = user.getMoney();
+		
 		if (dineroCuenta > money) {
 			user.setMoney(dineroCuenta - money);
 			setProductVendido(id);
 		}
 
-		
+	}
+
+	public boolean noPuedeComprar(Long id, Principal principal) {
+
+		Product p = getProduct(id);
+		Double money = p.getMoney();
+		String email = principal.getName();
+		User user = usersService.getUserByEmail(email);
+		Double dineroCuenta = user.getMoney();
+
+		return dineroCuenta < money;
+
 	}
 
 	public Page<Product> getProductsForUser(Pageable pageable, User user) {
