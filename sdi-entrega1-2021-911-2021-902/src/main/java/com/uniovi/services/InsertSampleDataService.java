@@ -54,5 +54,21 @@ public class InsertSampleDataService {
 
 		usersService.addUser(user3);
 
+
+		User user4 = new User("c@gmail.com", "Gloria", "Lopez");
+		user4.setPassword("123456");
+		user4.setRole(rolesService.getRoles()[0]);
+
+		Set user4Products = new HashSet<Product>() {
+			{
+				add(new Product("Radio", 150.0, "am y fm", user4));
+				add(new Product("Guitarra", 18.0, "madera de pino", user4));
+
+			}
+		};
+		user4.setProducts(user4Products);
+
+		usersService.addUser(user4);
+
 	}
 }

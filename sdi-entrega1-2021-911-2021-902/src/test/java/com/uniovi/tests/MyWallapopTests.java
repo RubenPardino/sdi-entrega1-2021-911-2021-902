@@ -9,6 +9,7 @@ import java.util.Set;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
+import org.openqa.selenium.By.ById;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -264,6 +265,99 @@ public class MyWallapopTests {
 		elementos.get(0).click();
 		PO_View.checkElement(driver, "text", "a@gmail.com");
 		PO_View.checkElement(driver, "text", "b@gmail.com");
+
+	}
+
+	// Ir a la lista de usuarios, borrar el primer usuario de la lista, comprobar
+	// que la lista se actualiza y que el usuario desaparece
+	@Test
+	public void PR13() {
+		initDB();
+
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario.
+		PO_LoginView.fillForm(driver, "admin@email.com", "admin");
+		// Comprobamos que entramos en la sección privada
+		PO_View.checkElement(driver, "text", "Bienvenidos a la pagina principal");
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'users-menu')]/a");
+		elementos.get(0).click();
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'user/list')]");
+		elementos.get(0).click();
+
+		elementos = PO_View.checkElement(driver, "free", "//input[@type='checkbox']");
+		elementos.get(0).click();
+
+		elementos = PO_View.checkElement(driver, "free", "//table/tbody/tr/td[1]");
+		String email = elementos.get(0).getText();
+		By boton = By.id("deleteButton");
+		driver.findElement(boton).click();
+
+		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, email, PO_View.getTimeout());
+
+	}
+
+	// Ir a la lista de usuarios, borrar el último usuario de la lista, comprobar
+	// que la lista se actualiza y que el usuario desaparece.
+	@Test
+	public void PR14() {
+		initDB();
+
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario.
+		PO_LoginView.fillForm(driver, "admin@email.com", "admin");
+		// Comprobamos que entramos en la sección privada
+		PO_View.checkElement(driver, "text", "Bienvenidos a la pagina principal");
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'users-menu')]/a");
+		elementos.get(0).click();
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'user/list')]");
+		elementos.get(0).click();
+		PO_PaginationView.goToLastPage(driver);
+
+		elementos = PO_View.checkElement(driver, "free", "//input[@type='checkbox']");
+		elementos.get(elementos.size() - 1).click();
+
+		elementos = PO_View.checkElement(driver, "free", "//table/tbody/tr/td[1]");
+		String email = elementos.get(elementos.size() - 1).getText();
+		By boton = By.id("deleteButton");
+		driver.findElement(boton).click();
+		PO_PaginationView.goToLastPage(driver);
+
+		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, email, PO_View.getTimeout());
+
+	}
+
+	// Ir a la lista de usuarios, borrar 3 usuarios, comprobar que la lista se
+	// actualiza y que losusuarios desaparecen.
+	@Test
+	public void PR15() {
+		initDB();
+
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario.
+		PO_LoginView.fillForm(driver, "admin@email.com", "admin");
+		// Comprobamos que entramos en la sección privada
+		PO_View.checkElement(driver, "text", "Bienvenidos a la pagina principal");
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'users-menu')]/a");
+		elementos.get(0).click();
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'user/list')]");
+		elementos.get(0).click();
+
+		elementos = PO_View.checkElement(driver, "free", "//input[@type='checkbox']");
+		elementos.get(0).click();
+		elementos.get(1).click();
+		elementos.get(2).click();
+
+		elementos = PO_View.checkElement(driver, "free", "//table/tbody/tr/td[1]");
+		String email0 = elementos.get(0).getText();
+		String email1 = elementos.get(1).getText();
+		String email2 = elementos.get(2).getText();
+
+		By boton = By.id("deleteButton");
+		driver.findElement(boton).click();
+
+		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, email0, PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, email1, PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, email2, PO_View.getTimeout());
 
 	}
 
