@@ -30,7 +30,7 @@ $( "#updateButton" ).click(function() { var numberPage = [[${param.page}]]; var 
 		/*]]>*/
 </script>
 		<div class="table-responsive">
-			<span class="text-danger" th:if="${error != null}" th:text="${error}" />
+			<span class="text-danger" th:text="${session.sinsaldo}" />
 			<table class="table table-hover" th:fragment="tableProducts"
 				id="tableProducts">
 				<thead>

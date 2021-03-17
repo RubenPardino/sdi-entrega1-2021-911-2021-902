@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class ProductsController {
 	private MessageSource messageSource;
 
 	@Autowired
-	private HttpSession httpSession;
+	private HttpSession session;
 
 	@Autowired // Inyectar el servicio
 	private ProductsService ProductsService;
@@ -43,7 +44,7 @@ public class ProductsController {
 
 	@RequestMapping("/product/list") // "/product/myList"
 	public String getList(Model model, Pageable pageable, Principal principal,
-			@RequestParam(value = "", required = false) String searchText) {
+			@RequestParam(value = "", required = false) String searchText, HttpServletRequest request) {
 		String email = principal.getName();
 		User user = usersService.getUserByEmail(email);
 		Page<Product> Products = new PageImpl<Product>(new LinkedList<Product>());
@@ -53,13 +54,13 @@ public class ProductsController {
 		} else {
 			Products = ProductsService.getProducts(pageable);
 		}
+
 		model.addAttribute("user", user);
 		model.addAttribute("productList", Products.getContent());
 		model.addAttribute("page", Products);
 		return "product/list";
 	}
-	
-	
+
 	@RequestMapping("/product/list/compradas") // "/product/myList"
 	public String getListCompradas(Model model, Pageable pageable, Principal principal,
 			@RequestParam(value = "", required = false) String searchText) {
@@ -72,6 +73,7 @@ public class ProductsController {
 		} else {
 			Products = ProductsService.getProducts(pageable);
 		}
+
 		model.addAttribute("user", user);
 		model.addAttribute("productList", Products.getContent());
 		model.addAttribute("page", Products);
@@ -169,17 +171,32 @@ public class ProductsController {
 	}
 
 	@RequestMapping(value = "/product/{id}/vendido", method = RequestMethod.GET)
-	public String setVendidoTrue(Model model, Principal principal, @PathVariable Long id, String error) {
+	public String setVendidoTrue(Model model, Principal principal, @PathVariable Long id, String error,
+			HttpServletRequest request) {
+
+		session = request.getSession();
+
+		if (session.getAttribute("sinsaldo") != null) {
+			session.removeAttribute("sinsaldo");
+		}
 
 		if (ProductsService.noPuedeComprar(id, principal)) {
-			model.addAttribute("error",
+			session.setAttribute("sinsaldo",
 					messageSource.getMessage("Error.buy.no.money", null, LocaleContextHolder.getLocale()));
+
 		}
 
 		else {
 			ProductsService.updateMoney(id, principal);
-			// model.addAttribute("user", user);
 		}
+
+		String email = principal.getName();
+		User user = usersService.getUserByEmail(email);
+		Page<Product> Products = new PageImpl<Product>(new LinkedList<Product>());
+
+		model.addAttribute("user", user);
+		model.addAttribute("productList", Products.getContent());
+		model.addAttribute("page", Products);
 
 		return "redirect:/product/list";
 	}
