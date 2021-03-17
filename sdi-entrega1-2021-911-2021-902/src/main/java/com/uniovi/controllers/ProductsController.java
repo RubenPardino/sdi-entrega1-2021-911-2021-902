@@ -58,6 +58,25 @@ public class ProductsController {
 		model.addAttribute("page", Products);
 		return "product/list";
 	}
+	
+	
+	@RequestMapping("/product/list/compradas") // "/product/myList"
+	public String getListCompradas(Model model, Pageable pageable, Principal principal,
+			@RequestParam(value = "", required = false) String searchText) {
+		String email = principal.getName();
+		User user = usersService.getUserByEmail(email);
+		Page<Product> Products = new PageImpl<Product>(new LinkedList<Product>());
+
+		if (searchText != null && !searchText.isEmpty()) {
+			Products = ProductsService.searchProductsByTitle(pageable, searchText, user);
+		} else {
+			Products = ProductsService.getProducts(pageable);
+		}
+		model.addAttribute("user", user);
+		model.addAttribute("productList", Products.getContent());
+		model.addAttribute("page", Products);
+		return "product/listCompradas";
+	}
 
 	@RequestMapping("/product/myList")
 	public String getMyList(Model model, Pageable pageable, Principal principal,
