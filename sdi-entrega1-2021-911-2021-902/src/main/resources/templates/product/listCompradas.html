@@ -53,9 +53,6 @@ $( "#updateButton" ).click(function() { var numberPage = [[${param.page}]]; var 
 							<td th:text="${product.description}">Ejercicio 1</td>
 							<td th:text="${product.money}">10</td>
 							<td th:text="${product.user.email}">test@mail.com</td>
-
-							<td><a th:href="${'/product/details/' + product.id}"
-								th:text="#{details.message}">detalles</a></td>
 							<td>
 								<div>
 									<button type="button" class="btn btn-info"
