@@ -48,9 +48,9 @@ public class ProductsController {
 		Page<Product> Products = new PageImpl<Product>(new LinkedList<Product>());
 
 		if (searchText != null && !searchText.isEmpty()) {
-			Products = ProductsService.searchProductsByTitle(pageable, searchText, user);
+			Products = ProductsService.searchProductsByTitleMenosPropios(pageable, searchText, user);
 		} else {
-			Products = ProductsService.getProducts(pageable);
+			Products = ProductsService.getProductsMenosPropios(pageable, user);
 		}
 
 		model.addAttribute("user", user);
@@ -154,7 +154,7 @@ public class ProductsController {
 	public String updateList(Model model, Pageable pageable, Principal principal) {
 		String email = principal.getName();
 		User user = usersService.getUserByEmail(email);
-		Page<Product> Products = ProductsService.getProducts(pageable);
+		Page<Product> Products = ProductsService.getProductsMenosPropios(pageable, user);
 		model.addAttribute("productList", Products.getContent());
 		return "product/list :: tableProducts";
 	}

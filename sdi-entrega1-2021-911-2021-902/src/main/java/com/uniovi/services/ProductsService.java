@@ -36,6 +36,11 @@ public class ProductsService {
 		return Products;
 	}
 
+	public Page<Product> getProductsMenosPropios(Pageable pageable, User user) {
+		Page<Product> Products = ProductsRepository.findAllMenosPropios(pageable, user);
+		return Products;
+	}
+
 	public void addProduct(Product Product) {
 // Si en Id es null le asignamos el ultimo + 1 de la lista
 		ProductsRepository.save(Product);
@@ -71,7 +76,7 @@ public class ProductsService {
 		String email = principal.getName();
 		User user = usersService.getUserByEmail(email);
 		Double dineroCuenta = user.getMoney();
-		
+
 		if (dineroCuenta > money) {
 			user.setMoney(dineroCuenta - money);
 			setProductVendido(id);
@@ -102,6 +107,15 @@ public class ProductsService {
 		searchText = "%" + searchText + "%";
 		if (user.getRole().equals("ROLE_ESTANDAR") || user.getRole().equals("ROLE_ADMIN")) {
 			Products = ProductsRepository.searchByTitle(pageable, searchText);
+		}
+		return Products;
+	}
+
+	public Page<Product> searchProductsByTitleMenosPropios(Pageable pageable, String searchText, User user) {
+		Page<Product> Products = new PageImpl<Product>(new LinkedList<Product>());
+		searchText = "%" + searchText + "%";
+		if (user.getRole().equals("ROLE_ESTANDAR") || user.getRole().equals("ROLE_ADMIN")) {
+			Products = ProductsRepository.searchByTitleMenosPropios(pageable, searchText, user);
 		}
 		return Products;
 	}
