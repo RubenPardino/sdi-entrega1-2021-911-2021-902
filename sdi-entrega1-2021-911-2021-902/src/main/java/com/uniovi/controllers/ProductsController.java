@@ -1,9 +1,7 @@
 package com.uniovi.controllers;
 
 import java.security.Principal;
-import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -189,10 +187,6 @@ public class ProductsController {
 		else {
 			ProductsService.updateMoney(id, principal);
 		}
-
-		String email = principal.getName();
-		User user = usersService.getUserByEmail(email);
-		Page<Product> Products = new PageImpl<Product>(new LinkedList<Product>());
 
 		return "redirect:/product/list";
 	}

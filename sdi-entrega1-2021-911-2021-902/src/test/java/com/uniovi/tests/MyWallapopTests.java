@@ -1,26 +1,16 @@
 package com.uniovi.tests;
 
-import static org.junit.Assert.*;
-
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
-import org.openqa.selenium.By.ById;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.uniovi.entities.Product;
-import com.uniovi.entities.User;
 import com.uniovi.repositories.UsersRepository;
 import com.uniovi.services.InsertSampleDataService;
-import com.uniovi.services.RolesService;
-import com.uniovi.services.UsersService;
 import com.uniovi.tests.pageobjects.PO_AddProductView;
 import com.uniovi.tests.pageobjects.PO_HomeView;
 import com.uniovi.tests.pageobjects.PO_LoginView;
