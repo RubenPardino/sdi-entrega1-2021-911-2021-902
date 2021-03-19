@@ -19,11 +19,9 @@
 				th:text="#{search.message}"></button>
 		</form>
 
-		<span th:replace="fragments/emailMoney"></span>
-
 		<p th:text="#{offerslist.message}"></p>
 		<button type="button" id="updateButton" class="btn btn-default"
-			th:text="#{update.message}">Actualizar</button>
+			th:text="#{update.message}"></button>
 		<script th:inline="javascript"> 
 		/*<![CDATA[*/
 $( "#updateButton" ).click(function() { var numberPage = [[${param.page}]]; var urlUpdate = '/product/list/update'; if (numberPage != null ){ urlUpdate += "?page="+numberPage[0]; } $("#tableProducts").load(urlUpdate);});
@@ -32,6 +30,7 @@ $( "#updateButton" ).click(function() { var numberPage = [[${param.page}]]; var 
 		<div class="table-responsive">
 			<table class="table table-hover" th:fragment="tableProducts"
 				id="tableProducts">
+				<span th:replace="fragments/emailMoney"></span>
 				<thead>
 					<tr>
 						<th class="col-md-1">Id</th>

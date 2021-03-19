@@ -1,5 +1,6 @@
 package com.uniovi.controllers;
 
+import java.security.Principal;
 import java.util.LinkedList;
 
 import javax.servlet.http.HttpSession;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.uniovi.entities.User;
 import com.uniovi.services.RolesService;
@@ -146,6 +148,7 @@ public class UsersController {
 	public String updateList(Model model) {
 		model.addAttribute("usersList", usersService.getUsers());
 		return "user/list :: tableUsers";
-
 	}
+	
+
 }
