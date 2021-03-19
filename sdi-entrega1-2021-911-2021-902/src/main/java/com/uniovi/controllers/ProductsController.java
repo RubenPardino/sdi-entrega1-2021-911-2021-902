@@ -53,7 +53,6 @@ public class ProductsController {
 			Products = ProductsService.getProductsMenosPropios(pageable, user);
 		}
 
-		model.addAttribute("user", user);
 		model.addAttribute("productList", Products.getContent());
 		model.addAttribute("page", Products);
 		return "product/list";
@@ -72,7 +71,6 @@ public class ProductsController {
 			Products = ProductsService.getProducts(pageable);
 		}
 
-		model.addAttribute("user", user);
 		model.addAttribute("productList", Products.getContent());
 		model.addAttribute("page", Products);
 		return "product/listCompradas";
@@ -90,7 +88,6 @@ public class ProductsController {
 		} else {
 			Products = ProductsService.getProductsForUser(pageable, user);
 		}
-		model.addAttribute("user", user);
 		model.addAttribute("productMyList", Products.getContent());
 		model.addAttribute("page", Products);
 		return "product/myList";
@@ -183,9 +180,12 @@ public class ProductsController {
 					messageSource.getMessage("Error.buy.no.money", null, LocaleContextHolder.getLocale()));
 
 		}
-
 		else {
 			ProductsService.updateMoney(id, principal);
+			String email = principal.getName();
+			User user = usersService.getUserByEmail(email);
+			session.removeAttribute("user");
+			session.setAttribute("user", user);
 		}
 
 		return "redirect:/product/list";

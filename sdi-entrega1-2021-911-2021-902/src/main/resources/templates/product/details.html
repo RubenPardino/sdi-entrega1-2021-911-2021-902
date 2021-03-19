@@ -24,9 +24,15 @@
 			<div class="panel-body" th:text="${product.description}">
 				Ejercicio 1</div>
 		</div>
+		
 		<div class="panel panel-default">
 			<div class="panel-heading">Precio</div>
 			<div class="panel-body" th:text="${product.money}">100</div>
+		</div>
+		
+		<div class="panel panel-default">
+			<div class="panel-heading">Fecha de creación</div>
+			<div class="panel-body" th:text="${product.date}"></div>
 		</div>
 	</div>
 	<footer th:replace="fragments/footer" />
