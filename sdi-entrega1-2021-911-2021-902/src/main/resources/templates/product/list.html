@@ -61,7 +61,7 @@ $( "#updateButton" ).click(function() { var numberPage = [[${param.page}]]; var 
 								</div>
 								<div th:unless="${product.vendido}">
 									<button type="button" th:id="${'commprarButton' + product.id}"
-										class="btn btn-default" th:text="#{buy.message}"></button>
+										class="btn btn-default" th:text="#{buy.message}"></button> 
 									<script th:inline="javascript">
  									/*<![CDATA[*/
  									 $( "#commprarButton[[${product.id}]]" ).click(function() {
