@@ -18,7 +18,7 @@
 					th:text="#{title.message}">Título:</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" name="title"
-						placeholder="Ejemplo Ejercicio 1" required="true" /><span
+						placeholder="Ejemplo Ejercicio 1" /><span
 						class="text-danger" th:if="${#fields.hasErrors('title')}"
 						th:errors="*{title}">
 				</div>

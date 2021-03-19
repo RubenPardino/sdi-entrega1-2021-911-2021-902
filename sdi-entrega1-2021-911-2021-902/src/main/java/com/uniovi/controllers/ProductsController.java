@@ -114,7 +114,7 @@ public class ProductsController {
 		Product.setUser(user);
 
 		ProductsService.addProduct(Product);
-		return "redirect:/product/list";
+		return "redirect:/product/myList";
 	}
 
 	@RequestMapping("/product/details/{id}")

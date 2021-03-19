@@ -1,5 +1,8 @@
 package com.uniovi.tests;
 
+import static org.junit.Assert.assertEquals;
+
+import java.util.LinkedList;
 import java.util.List;
 import org.junit.*;
 import org.junit.runner.RunWith;
@@ -255,6 +258,8 @@ public class MyWallapopTests {
 		elementos.get(0).click();
 		PO_View.checkElement(driver, "text", "a@gmail.com");
 		PO_View.checkElement(driver, "text", "b@gmail.com");
+		PO_View.checkElement(driver, "text", "c@gmail.com");
+		PO_View.checkElement(driver, "text", "d@gmail.com");
 
 	}
 
@@ -366,6 +371,9 @@ public class MyWallapopTests {
 		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/add')]");
 		elementos.get(0).click();
 		PO_AddProductView.fillForm(driver, "Camiseta", "camiseta azul de seda", "20");
+		PO_PaginationView.goToLastPage(driver);
+		PO_PaginationView.goToLastPage(driver);
+
 		PO_View.checkElement(driver, "text", "Camiseta");
 
 	}
@@ -384,12 +392,8 @@ public class MyWallapopTests {
 		elementos.get(0).click();
 		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/add')]");
 		elementos.get(0).click();
-		PO_AddProductView.fillForm(driver, "Cam", "camiseta azul de seda", "20");
+		PO_AddProductView.fillForm(driver, "", "camiseta azul de seda", "20");
 		PO_RegisterView.checkKey(driver, "Error.addmark.title.length", PO_Properties.getSPANISH());
-		PO_AddProductView.fillForm(driver, "Camiseta", "camiseta", "20");
-		PO_RegisterView.checkKey(driver, "Error.addmark.description.length", PO_Properties.getSPANISH());
-		PO_AddProductView.fillForm(driver, "Camiseta", "camiseta azul de seda", "0");
-		PO_RegisterView.checkKey(driver, "Error.addmark.score", PO_Properties.getSPANISH());
 
 	}
 
@@ -408,6 +412,7 @@ public class MyWallapopTests {
 		elementos.get(0).click();
 		PO_View.checkElement(driver, "text", "Coche de juguete");
 		PO_View.checkElement(driver, "text", "Calendario");
+		PO_View.checkElement(driver, "text", "Muñeca de juguete");
 
 	}
 
@@ -467,10 +472,39 @@ public class MyWallapopTests {
 		elementos.get(0).click();
 		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/list')]");
 		elementos.get(0).click();
+
+		elementos = PO_View.checkElement(driver, "free", "//table/tbody/tr/td[2]");
+
+		List<String> titulos = new LinkedList<String>();
+		for (WebElement elemento : elementos) {
+			titulos.add(elemento.getText());
+
+		}
+
+		PO_PaginationView.goToLastPage(driver);
+		
+		elementos = PO_View.checkElement(driver, "free", "//table/tbody/tr/td[2]");
+
+		List<String> titulos2 = new LinkedList<String>();
+
+		for (WebElement elemento : elementos) {
+			titulos2.add(elemento.getText());
+
+		}
+		
 		PO_SearchView.fillForm(driver, "");
-		PO_View.checkElement(driver, "text", "Coche de juguete");
-		PO_View.checkElement(driver, "text", "Calendario");
-		PO_View.checkElement(driver, "text", "Figura de Playmobil");
+
+		for (String titulo : titulos) {
+			PO_View.checkElement(driver, "text", titulo);
+
+		}
+
+		PO_PaginationView.goToLastPage(driver);
+
+		for (String titulo : titulos2) {
+			PO_View.checkElement(driver, "text", titulo);
+
+		}
 
 	}
 
@@ -488,9 +522,16 @@ public class MyWallapopTests {
 		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/list')]");
 		elementos.get(0).click();
 		PO_SearchView.fillForm(driver, "noexiste");
-		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "Coche de juguete", PO_View.getTimeout());
-		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "Calendario", PO_View.getTimeout());
 		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "Figura de Playmobil", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "Figura de Lego", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "Pantalón", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "Radio", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "Estantería", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "Guitarra", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "Mancuerna", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "Reloj de bolsillo", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "Piano", PO_View.getTimeout());
+
 	}
 
 	// Registro de Usuario con datos válidos
@@ -535,4 +576,28 @@ public class MyWallapopTests {
 		PO_View.checkElement(driver, "free", "//h1[contains(text(),'HTTP Status 403 – Forbidden')]");
 
 	}
+
+	// Ir al formulario de alta de oferta, rellenarla con datos inválidos
+	// y pulsar el botón Submit. Comprobar que se muestra el mensaje
+	// de campo obligatorio.
+	@Test
+	public void PR31() {
+		initDB();
+
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario.
+		PO_LoginView.fillForm(driver, "a@gmail.com", "123456");
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
+		elementos.get(0).click();
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/add')]");
+		elementos.get(0).click();
+		PO_AddProductView.fillForm(driver, "Cam", "camiseta azul de seda", "20");
+		PO_RegisterView.checkKey(driver, "Error.addmark.title.length", PO_Properties.getSPANISH());
+		PO_AddProductView.fillForm(driver, "Camiseta", "camiseta", "20");
+		PO_RegisterView.checkKey(driver, "Error.addmark.description.length", PO_Properties.getSPANISH());
+		PO_AddProductView.fillForm(driver, "Camiseta", "camiseta azul de seda", "0");
+		PO_RegisterView.checkKey(driver, "Error.addmark.score", PO_Properties.getSPANISH());
+
+	}
+
 }

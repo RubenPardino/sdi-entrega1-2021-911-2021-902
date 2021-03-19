@@ -52,7 +52,7 @@ public class InsertSampleDataService {
 			{
 				add(new Product("Figura de Playmobil", 150.0, "Juguete de plástico", user3));
 				add(new Product("Figura de Lego", 18.0, "Juguete de plástico", user3));
-				add(new Product("Pantalon", 34.0, "Talla M", user3));
+				add(new Product("Pantalón", 34.0, "Talla M", user3));
 
 			}
 		};
@@ -71,7 +71,7 @@ public class InsertSampleDataService {
 			{
 				add(new Product("Radio", 150.0, "am y fm", user4));
 				add(new Product("Guitarra", 18.0, "madera de pino", user4));
-				add(new Product("Estanteria", 56.0, "Hecha de plastico", user4));
+				add(new Product("Estantería", 56.0, "Hecha de plastico", user4));
 
 			}
 		};
