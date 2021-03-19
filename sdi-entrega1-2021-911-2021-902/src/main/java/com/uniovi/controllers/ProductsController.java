@@ -40,7 +40,7 @@ public class ProductsController {
 	@Autowired
 	private SignUpProductFormValidator signUpProductFormValidator;
 
-	@RequestMapping("/product/list") // "/product/myList"
+	@RequestMapping("/product/list")
 	public String getList(Model model, Pageable pageable, Principal principal,
 			@RequestParam(value = "", required = false) String searchText, HttpServletRequest request) {
 		String email = principal.getName();
@@ -59,7 +59,7 @@ public class ProductsController {
 		return "product/list";
 	}
 
-	@RequestMapping("/product/list/compradas") // "/product/myList"
+	@RequestMapping("/product/list/compradas")
 	public String getListCompradas(Model model, Pageable pageable, Principal principal,
 			@RequestParam(value = "", required = false) String searchText) {
 		String email = principal.getName();
