@@ -75,6 +75,10 @@ public class UsersService {
 			usersRepository.deleteById(ids.get(i));
 		ids.clear();
 	}
+	
+	public void updateUserMoney(Long id, double money) {
+		usersRepository.updateUserMoney(id, money);
+	}
 
 
 }

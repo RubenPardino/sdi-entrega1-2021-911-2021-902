@@ -225,6 +225,7 @@ public class ProductsController {
 		ProductsService.highlightOffer(id);
 		User user = (User) session.getAttribute("user");
 		user.setMoney(user.getMoney()-20);
+		usersService.updateUserMoney(user.getId(), user.getMoney());
 		session.removeAttribute("user");
 		session.setAttribute("user", user);
 		return "redirect:/product/myList";
