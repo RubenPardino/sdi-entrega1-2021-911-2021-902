@@ -62,7 +62,7 @@
 						<td th:text="${product.title}"></td>
 						<td th:text="${product.description}"></td>
 						<td th:text="${product.money}"></td>
-						<td>
+						<td th:if=${#httpSession.getAttribute('user').id!=product.user.id}>
 							<div>
 								<div th:if="${product.vendido}">
 									<button type="button" class="btn btn-info"
