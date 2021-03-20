@@ -24,7 +24,6 @@ import com.uniovi.repositories.ProductsRepository;
 @Service
 public class ProductsService {
 
-	
 	@Autowired
 	private ProductsRepository ProductsRepository;
 
@@ -64,12 +63,14 @@ public class ProductsService {
 		return obtainedProduct;
 	}
 
-	public void setProductVendido(Long id, long idComprador) {
+	public void setProductVendido(Long id, Long userId) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String email = auth.getName();
+		User user = usersService.getUserByEmail(email);
 		Product Product = ProductsRepository.findById(id).get();
 		if (!Product.getUser().getEmail().equals(email)) {
-			ProductsRepository.updateVendido(true, id, idComprador);
+			ProductsRepository.updateVendido(true, id, userId);
+
 		}
 	}
 
@@ -80,15 +81,13 @@ public class ProductsService {
 		User user = usersService.getUserByEmail(email);
 		Double dineroCuenta = user.getMoney();
 
-		if (dineroCuenta > money) {
+		if (dineroCuenta >= money) {
 			user.setMoney(dineroCuenta - money);
-			setProductVendido(id,user.getId());
-			p.setComprador(user.getId());
+			setProductVendido(id, user.getId());
 		}
 
 	}
 
-	
 	public boolean noPuedeComprar(Long id, Principal principal) {
 
 		Product p = getProduct(id);
@@ -132,5 +131,13 @@ public class ProductsService {
 			Products = ProductsRepository.searchByTitleAndUser(pageable, searchText, user);
 		}
 		return Products;
+	}
+
+	public Page<Product> getBoughtProducts(Pageable pageable, Principal principal) {
+		Page<Product> products = new PageImpl<Product>(new LinkedList<Product>());
+		String email = principal.getName();
+		User user = usersService.getUserByEmail(email);
+		products = ProductsRepository.searchByBuyerUser(pageable, user.getId());
+		return products;
 	}
 }

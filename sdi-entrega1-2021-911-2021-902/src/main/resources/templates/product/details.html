@@ -11,27 +11,27 @@
 
 
 	<div class="container">
-		<h2>Detalles de la nota</h2>
+		<h2 th:text="#{offer.details}"></h2>
 		
 		<div class="panel panel-default">
-			<div class="panel-heading">Título</div>
+			<div class="panel-heading" th:text="#{title.message}"></div>
 			<div class="panel-body" th:text="${product.title}">
 				Ejercicio 1</div>
 		</div>
 		
 		<div class="panel panel-default">
-			<div class="panel-heading">Descripción</div>
+			<div class="panel-heading" th:text="#{description.message}"></div>
 			<div class="panel-body" th:text="${product.description}">
 				Ejercicio 1</div>
 		</div>
 		
 		<div class="panel panel-default">
-			<div class="panel-heading">Precio</div>
+			<div class="panel-heading" th:text="#{table.message3}"></div>
 			<div class="panel-body" th:text="${product.money}">100</div>
 		</div>
 		
 		<div class="panel panel-default">
-			<div class="panel-heading">Fecha de creación</div>
+			<div class="panel-heading" th:text="#{creation.message}"></div>
 			<div class="panel-body" th:text="${product.date}"></div>
 		</div>
 	</div>

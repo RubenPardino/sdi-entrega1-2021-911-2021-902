@@ -110,4 +110,6 @@ public class Product {
 		this.vendido = vendido;
 	}
 
+	
+
 }

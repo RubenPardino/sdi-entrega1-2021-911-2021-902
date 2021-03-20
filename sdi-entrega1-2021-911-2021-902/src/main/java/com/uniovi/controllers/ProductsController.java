@@ -68,7 +68,7 @@ public class ProductsController {
 		if (searchText != null && !searchText.isEmpty()) {
 			Products = ProductsService.searchProductsByTitle(pageable, searchText, user);
 		} else {
-			Products = ProductsService.getProducts(pageable);
+			Products = ProductsService.getBoughtProducts(pageable, principal);
 		}
 
 		model.addAttribute("productList", Products.getContent());

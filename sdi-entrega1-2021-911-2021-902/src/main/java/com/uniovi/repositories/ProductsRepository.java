@@ -39,5 +39,8 @@ public interface ProductsRepository extends CrudRepository<Product, Long> {
 	@Query("SELECT r FROM Product r WHERE r.user <> ?1")
 	Page<Product> findAllMenosPropios(Pageable pageable, User user);
 	
+	@Query("SELECT r FROM Product r WHERE comprador = ?1")
+	Page<Product> searchByBuyerUser(Pageable pageable, Long id);
+	
 	Page<Product> findAll(Pageable pageable);
 }
