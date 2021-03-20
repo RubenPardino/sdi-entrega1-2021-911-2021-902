@@ -223,6 +223,10 @@ public class ProductsController {
 	@RequestMapping(value = "/product/highlight/{id}")
 	public String setHighlight(Model model, @PathVariable Long id) {
 		ProductsService.highlightOffer(id);
+		User user = (User) session.getAttribute("user");
+		user.setMoney(user.getMoney()-20);
+		session.removeAttribute("user");
+		session.setAttribute("user", user);
 		return "redirect:/product/myList";
 	}
 
