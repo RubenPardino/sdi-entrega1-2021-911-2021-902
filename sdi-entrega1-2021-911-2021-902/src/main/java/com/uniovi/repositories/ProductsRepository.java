@@ -16,6 +16,11 @@ public interface ProductsRepository extends CrudRepository<Product, Long> {
 	@Transactional
 	@Query("UPDATE Product SET vendido = ?1, comprador = ?3 WHERE id = ?2")
 	void updateVendido(Boolean vendido, Long id, long idComprador);
+	
+	@Modifying
+	@Transactional
+	@Query("UPDATE Product SET destacado = ?1 WHERE id = ?2")
+	void highlightProduct(Boolean destacado ,Long id);
 
 	@Query("SELECT r FROM Product r WHERE r.user = ?1 ORDER BY r.id ASC ")
 	Page<Product> findAllByUser(Pageable pageable, User user);

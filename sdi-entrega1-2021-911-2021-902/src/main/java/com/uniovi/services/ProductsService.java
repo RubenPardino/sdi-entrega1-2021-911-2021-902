@@ -140,4 +140,8 @@ public class ProductsService {
 		products = ProductsRepository.searchByBuyerUser(pageable, user.getId());
 		return products;
 	}
+	
+	public void highlightOffer(Long id) {
+		ProductsRepository.highlightProduct(true, id);
+	}
 }

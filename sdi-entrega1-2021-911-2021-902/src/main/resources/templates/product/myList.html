@@ -26,6 +26,7 @@
 						<th class="col-md-1"></th>
 						<th class="col-md-1"></th>
 						<th class="col-md-1"></th>
+						<th class="col-md-1"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -41,6 +42,13 @@
 						</td>
 						<td th:if="${!product.vendido}"><a sec:authorize="hasRole('ROLE_ESTANDAR')"
 							th:href="${'/product/delete/' + product.id}" th:text="#{delete.message}"></a></td>
+							
+						<td th:if="${!product.destacado}"><a sec:authorize="hasRole('ROLE_ESTANDAR')"
+							th:href="${'/product/highlight/' + product.id}" th:text="#{outstanding.message}"></a>
+						</td>
+						<td th:if="${product.destacado}"><a sec:authorize="hasRole('ROLE_ESTANDAR')" 
+							th:text="#{highlighted.message}"></a>
+						</td>
 					</tr>
 				</tbody>
 			</table>

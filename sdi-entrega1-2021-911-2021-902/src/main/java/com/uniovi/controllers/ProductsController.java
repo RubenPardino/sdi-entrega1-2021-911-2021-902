@@ -219,5 +219,11 @@ public class ProductsController {
 
 		return "redirect:/product/list";
 	}
+	
+	@RequestMapping(value = "/product/highlight/{id}")
+	public String setHighlight(Model model, @PathVariable Long id) {
+		ProductsService.highlightOffer(id);
+		return "redirect:/product/myList";
+	}
 
 }
