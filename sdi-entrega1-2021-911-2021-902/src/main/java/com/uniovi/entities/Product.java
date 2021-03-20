@@ -14,6 +14,8 @@ public class Product {
 	private Double money;
 	private String description;
 	private Boolean vendido = false;
+	
+	private Long comprador; 
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
@@ -69,6 +71,15 @@ public class Product {
 
 	public Long getId() {
 		return id;
+	}
+
+	
+	public Long getComprador() {
+		return comprador;
+	}
+
+	public void setComprador(Long comprador) {
+		this.comprador = comprador;
 	}
 
 	public void setId(Long id) {

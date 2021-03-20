@@ -46,6 +46,7 @@ $( "#updateButton" ).click(function() { var numberPage = [[${param.page}]]; var 
 				</thead>
 				<tbody>
 					<tr th:each="product : ${productList}">
+					<div th:if="${product.comprador == session.user.id}">
 						<div th:if="${product.vendido}">
 							<td th:text="${product.id}">1</td>
 							<td th:text="${product.title}">Ejercicio 1</td>
@@ -60,6 +61,7 @@ $( "#updateButton" ).click(function() { var numberPage = [[${param.page}]]; var 
 							</td>
 					</tr>
 				</tbody>
+				</div>
 				</div>
 			</table>
 		</div>

@@ -64,12 +64,12 @@ public class ProductsService {
 		return obtainedProduct;
 	}
 
-	public void setProductVendido(Long id) {
+	public void setProductVendido(Long id, long idComprador) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String email = auth.getName();
 		Product Product = ProductsRepository.findById(id).get();
 		if (!Product.getUser().getEmail().equals(email)) {
-			ProductsRepository.updateVendido(true, id);
+			ProductsRepository.updateVendido(true, id, idComprador);
 		}
 	}
 
@@ -82,11 +82,13 @@ public class ProductsService {
 
 		if (dineroCuenta > money) {
 			user.setMoney(dineroCuenta - money);
-			setProductVendido(id);
+			setProductVendido(id,user.getId());
+			p.setComprador(user.getId());
 		}
 
 	}
 
+	
 	public boolean noPuedeComprar(Long id, Principal principal) {
 
 		Product p = getProduct(id);
