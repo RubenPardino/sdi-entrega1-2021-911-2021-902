@@ -5,6 +5,8 @@
 	<nav th:replace="fragments/nav" />
 	<div class="container" style="text-align: center">
 		<h2 th:text="#{welcome.message}"></h2>
+		<p sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{admin.message}"></p>
+		<div sec:authorize="hasRole('ROLE_ESTANDAR')">
 		<p>
 			<span th:replace="fragments/emailMoney" ></span>
 		</p>
@@ -30,13 +32,15 @@
 						<td th:text="${product.description}"></td>
 						<td th:text="${product.money}"></td>
 						<td><a th:href="${'/product/details/' + product.id}" th:text="#{details.message}"></a></td>
-						<td><a th:href="${'/product/edit/' + product.id}"
-							sec:authorize="hasRole('ROLE_ESTANDAR')" th:text="#{modify.message}"></a></td>
-						<td><a th:href="${'/product/delete/' + product.id}"
-							sec:authorize="hasRole('ROLE_ESTANDAR')" th:text="#{delete.message}"></a></td>
+						<td th:if="${!product.vendido}"><a sec:authorize="hasRole('ROLE_ESTANDAR')"
+							th:href="${'/product/edit/' + product.id}" th:text="#{modify.message}"></a>
+						</td>
+						<td th:if="${!product.vendido}"><a sec:authorize="hasRole('ROLE_ESTANDAR')"
+							th:href="${'/product/delete/' + product.id}" th:text="#{delete.message}"></a></td>
 					</tr>
 				</tbody>
 			</table>
+		</div>
 		</div>
 	</div>
 	<footer th:replace="fragments/footer" />

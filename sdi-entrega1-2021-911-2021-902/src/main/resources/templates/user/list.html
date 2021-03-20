@@ -5,17 +5,16 @@
 	<!-- Barra de Navegación superior -->
 	<nav th:replace="fragments/nav" />
 	<div class="container">
-		<h2>Usuarios</h2>
+		<h2 th:text="#{usersA.message}"></h2>
 		<form class="navbar-form" action="/user/list">
 			<div class="form-group">
 				<input name="text" type="text" class="form-control" size="50"
 					placeholder="Buscar por nombre o apellido">
 			</div>
-			<button type="submit" class="btn btn-default">Buscar</button>
+			<button type="submit" class="btn btn-default" th:text="#{search.message}">Buscar</button>
 		</form>
-		<p>Los usuarios que actualmente figuran en el sistema son los
-			siguientes:</p>
-		<button type="button" id="updateButton" class="btn btn-default">Actualizar</button>
+		<p th:text="#{usersInSystem.message}"></p>
+		<button type="button" id="updateButton" class="btn btn-default" th:text="#{update.message}">Actualizar</button>
 		<script th:inline="javascript">
  			/*<![CDATA[*/
  				$( "#updateButton" ).click(function() {
@@ -34,8 +33,8 @@
 				<thead>
 					<tr>
 						<th>Email</th>
-						<th>Nombre</th>
-						<th>Apellidos</th>
+						<th th:text="#{name.message}">Nombre</th>
+						<th th:text="#{lastName.message}">Apellidos</th>
 						<th class="col-md-1"></th>
 						<th class="col-md-1"></th>
 						<th class="col-md-1"></th>
@@ -49,8 +48,8 @@
 						<td th:text="${user.email}">test@gmail.com</td>
 						<td th:text="${user.name}">Nombre del alumno</td>
 						<td th:text="${user.lastName}">Apellido</td>
-					    <td><a th:href="${'/user/details/' + user.id}">detalles</a></td>
-						<td><a th:href="${'/user/edit/' + user.id}">modificar</a></td>
+					    <td><a th:href="${'/user/details/' + user.id}" th:text="#{details.message}">detalles</a></td>
+						<td><a th:href="${'/user/edit/' + user.id}" th:text="#{modify.message}">modificar</a></td>
 						<td><input type="checkbox" th:id="${user.id}"/>
 							<script th:inline="javascript">
 							/*<![CDATA[*/
@@ -67,7 +66,7 @@
 				</tbody>
 			</table>
 		</div>
-		<button type="button" id="deleteButton" class="btn btn-default">Eliminar</button>
+		<button type="button" id="deleteButton" class="btn btn-default" th:text="#{delete.message}"></button>
 		<script th:inline="javascript">
  			/*<![CDATA[*/
  				$( "#deleteButton" ).click(function() {

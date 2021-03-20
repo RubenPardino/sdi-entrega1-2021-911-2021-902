@@ -48,14 +48,11 @@ public class MyWallapopTests {
 	// En Windows (Debe ser la versión 65.0.1 y desactivar las actualizacioens
 	// automáticas)):
 
-	// static String PathFirefox65 = "C:\\Program Files\\Mozilla
-	// Firefox\\firefox.exe";
-	// static String Geckdriver024 =
-	// "C:\\Users\\pardi\\OneDrive\\Escritorio\\SDI\\Sesion
-	// 5\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
+	 static String PathFirefox65 = "C:\\Program Files\\Mozilla Firefox\\firefox.exe";
+	 static String Geckdriver024 = "C:\\Users\\pardi\\OneDrive\\Escritorio\\SDI\\Sesion 5\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
 
-	static String PathFirefox65 = "C:\\Program Files\\Mozilla Firefox\\firefox.exe";
-	static String Geckdriver024 = "C:\\Users\\jk236\\Downloads\\PL-SDI-Sesión5-material\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
+//	static String PathFirefox65 = "C:\\Program Files\\Mozilla Firefox\\firefox.exe";
+//	static String Geckdriver024 = "C:\\Users\\jk236\\Downloads\\PL-SDI-Sesión5-material\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
 
 	// En MACOSX (Debe ser la versión 65.0.1
 	// y desactivar las actualizacioens automáticas):
@@ -626,18 +623,50 @@ public class MyWallapopTests {
 	public void PR27() {
 		initDB();
 
-//		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
-//		// Rellenamos el formulario.
-//		PO_LoginView.fillForm(driver, "a@gmail.com", "123456");
-//		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
-//		elementos.get(0).click();
-//		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/list')]");
-//		elementos.get(0).click();
-//		PO_SearchView.fillForm(driver, "Playmobil");
-//		elementos = PO_View.checkElement(driver, "free", "//button[contains(text(), 'Comprar')]");
-//		elementos.get(0).click();
-//		PO_View.checkElement(driver, "text", "No tienes suficiente dinero");
-//		PO_NavView.clickOption(driver, "logout", "class", "btn btn-primary");
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario.
+		PO_LoginView.fillForm(driver, "a@gmail.com", "123456");
+		
+		PO_View.checkElement(driver, "text", "Bienvenidos");
+		PO_NavView.changeIdiom(driver, "English");
+		PO_View.checkElement(driver, "text", "Welcome");
+		PO_NavView.changeIdiom(driver, "Spanish");
+		PO_View.checkElement(driver, "text", "Bienvenidos");
+		
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
+		elementos.get(0).click();
+		PO_View.checkElement(driver, "text", "Agregar");
+		PO_NavView.changeIdiom(driver, "English");
+		elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
+		elementos.get(0).click();
+		PO_View.checkElement(driver, "text", "Add");
+		PO_NavView.changeIdiom(driver, "Spanish");
+		elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
+		elementos.get(0).click();
+		PO_View.checkElement(driver, "text", "Agregar");
+		
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/add')]");
+		elementos.get(0).click();
+		PO_View.checkElement(driver, "text", "Añadir");
+		PO_NavView.changeIdiom(driver, "English");
+		PO_View.checkElement(driver, "text", "Send");
+		PO_NavView.changeIdiom(driver, "Spanish");
+		PO_View.checkElement(driver, "text", "Enviar");
+		
+		PO_NavView.clickOption(driver, "logout", "class", "btn btn-primary");
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario.
+		PO_LoginView.fillForm(driver, "admin@email.com", "admin");
+		elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'users-menu')]/a");
+		elementos.get(0).click();
+		PO_View.checkElement(driver, "text", "Usuarios");
+		PO_NavView.changeIdiom(driver, "English");
+		PO_View.checkElement(driver, "text", "Users");
+		PO_NavView.changeIdiom(driver, "Spanish");
+		PO_View.checkElement(driver, "text", "Usuarios");
+		
+		PO_NavView.clickOption(driver, "logout", "class", "btn btn-primary");
+		
 	}
 
 	// Registro de Usuario con datos válidos
