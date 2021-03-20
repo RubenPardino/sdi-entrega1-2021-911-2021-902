@@ -16,6 +16,10 @@ nav a:focus {
 	background: white !important; 
 }
 
+#checkDestacado {
+	width: 5%;
+}
+
 body {
 	/* Margin bottom by footer height */
 	margin-bottom: 60px;
