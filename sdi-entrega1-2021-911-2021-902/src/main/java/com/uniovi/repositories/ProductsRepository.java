@@ -1,6 +1,8 @@
 package com.uniovi.repositories;
 
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
@@ -21,6 +23,9 @@ public interface ProductsRepository extends CrudRepository<Product, Long> {
 	@Transactional
 	@Query("UPDATE Product SET destacado = ?1 WHERE id = ?2")
 	void highlightProduct(Boolean destacado ,Long id);
+	
+	@Query("SELECT r FROM Product r WHERE r.destacado = TRUE")
+	List<Product> searchDestacados();
 
 	@Query("SELECT r FROM Product r WHERE r.user = ?1 ORDER BY r.id ASC ")
 	Page<Product> findAllByUser(Pageable pageable, User user);

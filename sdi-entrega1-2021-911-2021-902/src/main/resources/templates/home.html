@@ -41,6 +41,50 @@
 				</tbody>
 			</table>
 		</div>
+		
+		<span th:text="#{highlighteds.message}" ></span>
+		
+		<div class="table-responsive">
+			<table class="table table-hover" th:fragment="tableDestacados"
+				id="tableDestacados">
+				<thead>
+					<tr>
+						<th class="col-md-1">Id</th>
+						<th th:text="#{table.message1}">Título</th>
+						<th th:text="#{table.message2}">Descripción</th>
+						<th th:text="#{table.message3}">Precio</th>
+						<th class="col-md-1"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="product : ${listaDestacados}">
+						<td th:text="${product.id}"></td>
+						<td th:text="${product.title}"></td>
+						<td th:text="${product.description}"></td>
+						<td th:text="${product.money}"></td>
+						<td>
+							<div>
+								<div th:if="${product.vendido}">
+									<button type="button" class="btn btn-info"
+										th:text="#{sold.message}"></button>
+								</div>
+								<div th:unless="${product.vendido}">
+									<button type="button" th:id="${'commprarButton' + product.id}"
+										class="btn btn-default" th:text="#{buy.message}"></button> 
+									<script th:inline="javascript">
+ 									/*<![CDATA[*/
+ 									 $( "#commprarButton[[${product.id}]]" ).click(function() {
+ 									 	$.get( "/product/[[${product.id}]]/vendido");
+ 									 });
+ 									 /*]]>*/
+  									</script>
+								</div>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 		</div>
 	</div>
 	<footer th:replace="fragments/footer" />

@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.uniovi.entities.User;
+import com.uniovi.services.ProductsService;
 import com.uniovi.services.RolesService;
 import com.uniovi.services.SecurityService;
 import com.uniovi.services.UsersService;
@@ -44,6 +45,9 @@ public class UsersController {
 
 	@Autowired
 	private UsersService usersService;
+	
+	@Autowired
+	private ProductsService ProductsService;
 
 	@Autowired
 	private SecurityService securityService;
@@ -159,6 +163,7 @@ public class UsersController {
 		String email = auth.getName();
 		User activeUser = usersService.getUserByEmail(email);
 		httpSession.setAttribute("user", activeUser);
+		model.addAttribute("listaDestacados", ProductsService.getProductosDestacados());
 		model.addAttribute("productList", activeUser.getProducts());
 		return "home";
 	}
