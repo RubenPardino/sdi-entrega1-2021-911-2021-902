@@ -53,6 +53,7 @@ public class InsertSampleDataService {
 				add(new Product("Figura de Playmobil", 150.0, "Juguete de plástico", user3));
 				add(new Product("Figura de Lego", 18.0, "Juguete de plástico", user3));
 				add(new Product("Pantalón", 34.0, "Talla M", user3));
+				
 
 			}
 		};
@@ -82,13 +83,21 @@ public class InsertSampleDataService {
 		User user5 = new User("d@gmail.com", "Domingo", "Sanchez");
 		user5.setPassword("123456");
 		user5.setRole(rolesService.getRoles()[0]);
+		
+		Product productComprado1 = new Product("Flauta", 10.0, "Instrumento de viento", user5);
+		productComprado1.setComprador(user1.getId());
+		productComprado1.setVendido(true);
+		Product productComprado2 = new Product("Pelota", 20.0, "Balón reglamentario", user5);
+		productComprado2.setComprador(user1.getId());
+		productComprado2.setVendido(true);
 
 		Set user5Products = new HashSet<Product>() {
 			{
 				add(new Product("Mancuerna", 80.0, "5 Kg", user5));
 				add(new Product("Piano", 200.0, "Color blanco", user5));
 				add(new Product("Reloj de bolsillo", 60.0, "Artesanal", user5));
-
+				add(productComprado1);
+				add(productComprado2);
 			}
 		};
 		user5.setProducts(user5Products);

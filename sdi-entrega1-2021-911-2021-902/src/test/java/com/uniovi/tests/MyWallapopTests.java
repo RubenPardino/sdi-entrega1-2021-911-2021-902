@@ -51,7 +51,7 @@ public class MyWallapopTests {
 	static String PathFirefox65 = "C:\\Program Files\\Mozilla Firefox\\firefox.exe";
 	static String Geckdriver024 = "C:\\Users\\pardi\\OneDrive\\Escritorio\\SDI\\Sesion 5\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
 
-	// Tus cosas Jonathan =D
+	// Tus cosas Jonathan =D (un poco jodidas por el CTRL+shift+f)
 	// static String PathFirefox65 = "C:\\Program Files\\Mozilla
 	// Firefox\\firefox.exe";
 	// static String Geckdriver024 =
@@ -609,18 +609,16 @@ public class MyWallapopTests {
 	public void PR26() {
 		initDB();
 
-//		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
-//		// Rellenamos el formulario.
-//		PO_LoginView.fillForm(driver, "a@gmail.com", "123456");
-//		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
-//		elementos.get(0).click();
-//		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/list')]");
-//		elementos.get(0).click();
-//		PO_SearchView.fillForm(driver, "Playmobil");
-//		elementos = PO_View.checkElement(driver, "free", "//button[contains(text(), 'Comprar')]");
-//		elementos.get(0).click();
-//		PO_View.checkElement(driver, "text", "No tienes suficiente dinero");
-//		PO_NavView.clickOption(driver, "logout", "class", "btn btn-primary");
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario.
+		PO_LoginView.fillForm(driver, "a@gmail.com", "123456");
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
+		elementos.get(0).click();
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/list/compradas')]");
+		elementos.get(0).click();
+		PO_View.checkElement(driver, "text", "Flauta");
+		PO_View.checkElement(driver, "text", "Pelota");
+		PO_NavView.clickOption(driver, "logout", "class", "btn btn-primary");
 	}
 
 	// Prueba la internacionalización
