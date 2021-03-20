@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -25,6 +27,8 @@ import com.uniovi.validators.SignUpProductFormValidator;
 
 @Controller
 public class ProductsController {
+	private final Logger log = LoggerFactory.getLogger(this.getClass());
+
 	@Autowired
 	private MessageSource messageSource;
 
@@ -55,6 +59,9 @@ public class ProductsController {
 
 		model.addAttribute("productList", Products.getContent());
 		model.addAttribute("page", Products);
+
+		log.info(messageSource.getMessage("log.product.list", null, LocaleContextHolder.getLocale()) + user.getId());
+
 		return "product/list";
 	}
 
@@ -70,6 +77,9 @@ public class ProductsController {
 		} else {
 			Products = ProductsService.getBoughtProducts(pageable, principal);
 		}
+
+		log.info(messageSource.getMessage("log.product.listcompradas", null, LocaleContextHolder.getLocale())
+				+ user.getId());
 
 		model.addAttribute("productList", Products.getContent());
 		model.addAttribute("page", Products);
@@ -90,6 +100,8 @@ public class ProductsController {
 		}
 		model.addAttribute("productMyList", Products.getContent());
 		model.addAttribute("page", Products);
+		log.info(messageSource.getMessage("log.product.mylist", null, LocaleContextHolder.getLocale()) + user.getId());
+
 		return "product/myList";
 	}
 
@@ -114,18 +126,24 @@ public class ProductsController {
 		Product.setUser(user);
 
 		ProductsService.addProduct(Product);
+		log.info(messageSource.getMessage("log.product.add", null, LocaleContextHolder.getLocale()));
+
 		return "redirect:/product/myList";
 	}
 
 	@RequestMapping("/product/details/{id}")
 	public String getDetail(Model model, @PathVariable Long id) {
 		model.addAttribute("product", ProductsService.getProduct(id));
+		log.info(messageSource.getMessage("log.product.details", null, LocaleContextHolder.getLocale()) + id);
+
 		return "product/details";
 	}
 
 	@RequestMapping("/product/delete/{id}")
 	public String deleteProduct(@PathVariable Long id) {
 		ProductsService.deleteProduct(id);
+		log.info(messageSource.getMessage("log.product.delete", null, LocaleContextHolder.getLocale()) + id);
+
 		return "redirect:/product/myList";
 	}
 
@@ -133,6 +151,7 @@ public class ProductsController {
 	public String getEdit(Model model, @PathVariable Long id) {
 		model.addAttribute("product", ProductsService.getProduct(id));
 		model.addAttribute("usersList", usersService.getUsers());
+
 		return "product/edit";
 	}
 
@@ -144,6 +163,7 @@ public class ProductsController {
 		original.setTitle(Product.getTitle());
 		original.setDescription(Product.getDescription());
 		ProductsService.addProduct(original);
+		log.info(messageSource.getMessage("log.product.edit", null, LocaleContextHolder.getLocale()) + id);
 		return "redirect:/product/details/" + id;
 	}
 
@@ -178,14 +198,17 @@ public class ProductsController {
 		if (ProductsService.noPuedeComprar(id, principal)) {
 			session.setAttribute("sinsaldo",
 					messageSource.getMessage("Error.buy.no.money", null, LocaleContextHolder.getLocale()));
+			log.info(messageSource.getMessage("Error.buy.no.money", null, LocaleContextHolder.getLocale()) + id);
 
-		}
-		else {
+
+		} else {
 			ProductsService.updateMoney(id, principal);
 			String email = principal.getName();
 			User user = usersService.getUserByEmail(email);
 			session.removeAttribute("user");
 			session.setAttribute("user", user);
+			log.info(messageSource.getMessage("log.product.vendido", null, LocaleContextHolder.getLocale()) + id);
+
 		}
 
 		return "redirect:/product/list";

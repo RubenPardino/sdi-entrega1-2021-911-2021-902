@@ -66,16 +66,21 @@ public class UsersController {
 		}
 		model.addAttribute("usersList", users.getContent());
 		model.addAttribute("page", users);
+		
+		log.info(messageSource.getMessage("log.user.list", null, LocaleContextHolder.getLocale()));
+
 		return "user/list";
 	}
 
 	@RequestMapping("/user/details/{id}")
 	public String getDetail(Model model, @PathVariable Long id) {
 		model.addAttribute("user", usersService.getUser(id));
+		log.info(messageSource.getMessage("log.user.details", null, LocaleContextHolder.getLocale()) + id);
+
 		return "user/details";
 	}
 
-	@RequestMapping("/user/delete/{id}") /// user/confirmDelete
+	@RequestMapping("/user/delete/{id}") ///  user/confirmDelete
 	public String delete(@PathVariable Long id) {
 		usersService.manageDeleteUser(id);
 		log.info(messageSource.getMessage("log.user.delete", null, LocaleContextHolder.getLocale()) + id);
