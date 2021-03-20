@@ -16,6 +16,8 @@ public class Product {
 	private Boolean vendido = false;
 	
 	private Long comprador; 
+	
+	private Boolean destacado = false;
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
@@ -110,6 +112,13 @@ public class Product {
 		this.vendido = vendido;
 	}
 
-	
+	public Boolean getDestacado() {
+		return destacado;
+	}
 
+	public void setDestacado(Boolean destacado) {
+		this.destacado = destacado;
+	}
+	
+	
 }

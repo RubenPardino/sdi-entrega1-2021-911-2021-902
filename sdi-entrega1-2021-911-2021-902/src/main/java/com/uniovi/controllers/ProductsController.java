@@ -124,6 +124,12 @@ public class ProductsController {
 		String email = principal.getName();
 		User user = usersService.getUserByEmail(email);
 		Product.setUser(user);
+		
+		if (Product.getDestacado()) {
+			user.setMoney(user.getMoney()-20);
+			session.removeAttribute("user");
+			session.setAttribute("user", user);
+		}
 
 		ProductsService.addProduct(Product);
 		log.info(messageSource.getMessage("log.product.add", null, LocaleContextHolder.getLocale()));
