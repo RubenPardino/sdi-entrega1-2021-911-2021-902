@@ -129,7 +129,7 @@ public class UsersController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(Model model, String error, String logout, Principal principal) {
+	public String login(Model model, String error, String logout) {
 
 		if (error != null) {
 			model.addAttribute("error", messageSource.getMessage("Error.login", null, LocaleContextHolder.getLocale()));
@@ -143,7 +143,7 @@ public class UsersController {
 			log.info(messageSource.getMessage("Login.logout", null, LocaleContextHolder.getLocale()));
 
 		}
-		log.info(messageSource.getMessage("authenticated.message", null, LocaleContextHolder.getLocale()) + principal.getName());
+		log.info(messageSource.getMessage("log.user.login", null, LocaleContextHolder.getLocale()));
 
 		return "login";
 	}
