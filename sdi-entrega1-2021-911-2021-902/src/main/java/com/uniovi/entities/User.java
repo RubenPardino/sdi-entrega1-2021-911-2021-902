@@ -1,7 +1,17 @@
 package com.uniovi.entities;
 
-import javax.persistence.*;
+import java.util.List;
 import java.util.Set; //A collection that contains no duplicate elements
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "user")
@@ -22,6 +32,9 @@ public class User {
 	private String role;
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private Set<Product> products;
+	
+//	@ManyToMany(mappedBy = "usuarios")
+//	private List<Conversation> conversations;
 
 	public User(String email, String name, String lastName) {
 		super();

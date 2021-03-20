@@ -20,12 +20,7 @@
 		</form>
 
 		<p th:text="#{offerslist.message}"></p>
-		<button type="button" id="updateButton" class="btn btn-default"
-			th:text="#{update.message}"></button>
-		<script th:inline="javascript"> 
-		/*<![CDATA[*/
-$( "#updateButton" ).click(function() { var numberPage = [[${param.page}]]; var urlUpdate = '/product/list/update'; if (numberPage != null ){ urlUpdate += "?page="+numberPage[0]; } $("#tableProducts").load(urlUpdate);});
-		/*]]>*/
+		
 </script>
 		<div class="table-responsive">
 			<table class="table table-hover" th:fragment="tableProducts"

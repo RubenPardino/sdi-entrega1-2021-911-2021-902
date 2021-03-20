@@ -16,6 +16,11 @@ public interface ProductsRepository extends CrudRepository<Product, Long> {
 	@Transactional
 	@Query("UPDATE Product SET vendido = ?1 WHERE id = ?2")
 	void updateVendido(Boolean vendido, Long id);
+	
+	@Modifying
+	@Transactional
+	@Query("UPDATE Product SET comprador = ?1 WHERE id = ?2")
+	void updateVendidoUser(Long userId, Long id);
 
 	@Query("SELECT r FROM Product r WHERE r.user = ?1 ORDER BY r.id ASC ")
 	Page<Product> findAllByUser(Pageable pageable, User user);
@@ -38,6 +43,9 @@ public interface ProductsRepository extends CrudRepository<Product, Long> {
 	
 	@Query("SELECT r FROM Product r WHERE r.user <> ?1")
 	Page<Product> findAllMenosPropios(Pageable pageable, User user);
+	
+	@Query("SELECT r FROM Product r WHERE comprador = ?1")
+	Page<Product> searchByBuyerUser(Pageable pageable, Long id);
 	
 	Page<Product> findAll(Pageable pageable);
 }

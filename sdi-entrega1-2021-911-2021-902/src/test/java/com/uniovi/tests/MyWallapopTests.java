@@ -1,32 +1,36 @@
 package com.uniovi.tests;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.LinkedList;
 import java.util.List;
-import org.junit.*;
+
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
+import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import com.uniovi.repositories.UsersRepository;
 import com.uniovi.services.InsertSampleDataService;
 import com.uniovi.tests.pageobjects.PO_AddProductView;
 import com.uniovi.tests.pageobjects.PO_HomeView;
 import com.uniovi.tests.pageobjects.PO_LoginView;
+import com.uniovi.tests.pageobjects.PO_NavView;
 import com.uniovi.tests.pageobjects.PO_PaginationView;
 import com.uniovi.tests.pageobjects.PO_Properties;
 import com.uniovi.tests.pageobjects.PO_RegisterView;
 import com.uniovi.tests.pageobjects.PO_SearchView;
 import com.uniovi.tests.pageobjects.PO_View;
 import com.uniovi.tests.util.SeleniumUtils;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-
-import org.junit.runners.MethodSorters;
 
 //Ordenamos las pruebas por el nombre del métodos
 
@@ -43,8 +47,16 @@ public class MyWallapopTests {
 
 	// En Windows (Debe ser la versión 65.0.1 y desactivar las actualizacioens
 	// automáticas)):
+
 	static String PathFirefox65 = "C:\\Program Files\\Mozilla Firefox\\firefox.exe";
-	static String Geckdriver024 = "C:\\Users\\jk236\\Downloads\\PL-SDI-Sesión5-material\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
+	static String Geckdriver024 = "C:\\Users\\pardi\\OneDrive\\Escritorio\\SDI\\Sesion 5\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
+
+	// Tus cosas Jonathan =D
+	// static String PathFirefox65 = "C:\\Program Files\\Mozilla
+	// Firefox\\firefox.exe";
+	// static String Geckdriver024 =
+	// "C:\\Users\\jk236\\Downloads\\PL-SDI-Sesión5-material\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
+
 	// En MACOSX (Debe ser la versión 65.0.1
 	// y desactivar las actualizacioens automáticas):
 	// static String PathFirefox65 =
@@ -482,7 +494,7 @@ public class MyWallapopTests {
 		}
 
 		PO_PaginationView.goToLastPage(driver);
-		
+
 		elementos = PO_View.checkElement(driver, "free", "//table/tbody/tr/td[2]");
 
 		List<String> titulos2 = new LinkedList<String>();
@@ -491,7 +503,7 @@ public class MyWallapopTests {
 			titulos2.add(elemento.getText());
 
 		}
-		
+
 		PO_SearchView.fillForm(driver, "");
 
 		for (String titulo : titulos) {
@@ -532,6 +544,102 @@ public class MyWallapopTests {
 		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "Reloj de bolsillo", PO_View.getTimeout());
 		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "Piano", PO_View.getTimeout());
 
+	}
+
+	// Comprar una oferta y comprobar que te deja el saldo como tiene que dejartelo
+	@Test
+	public void PR23() {
+		initDB();
+
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario.
+		PO_LoginView.fillForm(driver, "a@gmail.com", "123456");
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
+		elementos.get(0).click();
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/list')]");
+		elementos.get(0).click();
+		PO_SearchView.fillForm(driver, "Lego");
+		elementos = PO_View.checkElement(driver, "free", "//button[contains(text(), 'Comprar')]");
+		elementos.get(0).click();
+		PO_View.checkElement(driver, "text", "82.0");
+		PO_NavView.clickOption(driver, "logout", "class", "btn btn-primary");
+	}
+
+	// Comprar una oferta que cueste todo tu dinero y comprobar que te deja el saldo
+	// a 0
+	@Test
+	public void PR24() {
+		initDB();
+
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario.
+		PO_LoginView.fillForm(driver, "a@gmail.com", "123456");
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
+		elementos.get(0).click();
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/list')]");
+		elementos.get(0).click();
+		PO_SearchView.fillForm(driver, "Radio");
+		elementos = PO_View.checkElement(driver, "free", "//button[contains(text(), 'Comprar')]");
+		elementos.get(0).click();
+		PO_View.checkElement(driver, "text", "0.0");
+		PO_NavView.clickOption(driver, "logout", "class", "btn btn-primary");
+	}
+
+	// Intentar comprar una oferta sin el dinero suficiente
+	@Test
+	public void PR25() {
+		initDB();
+
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario.
+		PO_LoginView.fillForm(driver, "a@gmail.com", "123456");
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
+		elementos.get(0).click();
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/list')]");
+		elementos.get(0).click();
+		PO_SearchView.fillForm(driver, "Playmobil");
+		elementos = PO_View.checkElement(driver, "free", "//button[contains(text(), 'Comprar')]");
+		elementos.get(0).click();
+		PO_View.checkElement(driver, "text", "No tienes suficiente dinero");
+		PO_NavView.clickOption(driver, "logout", "class", "btn btn-primary");
+	}
+
+	// Ir a ofertas compradas y mostrar la lista de ofertas compradas
+	@Test
+	public void PR26() {
+		initDB();
+
+//		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+//		// Rellenamos el formulario.
+//		PO_LoginView.fillForm(driver, "a@gmail.com", "123456");
+//		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
+//		elementos.get(0).click();
+//		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/list')]");
+//		elementos.get(0).click();
+//		PO_SearchView.fillForm(driver, "Playmobil");
+//		elementos = PO_View.checkElement(driver, "free", "//button[contains(text(), 'Comprar')]");
+//		elementos.get(0).click();
+//		PO_View.checkElement(driver, "text", "No tienes suficiente dinero");
+//		PO_NavView.clickOption(driver, "logout", "class", "btn btn-primary");
+	}
+
+	// Prueba la internacionalización
+	@Test
+	public void PR27() {
+		initDB();
+
+//		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+//		// Rellenamos el formulario.
+//		PO_LoginView.fillForm(driver, "a@gmail.com", "123456");
+//		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
+//		elementos.get(0).click();
+//		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/list')]");
+//		elementos.get(0).click();
+//		PO_SearchView.fillForm(driver, "Playmobil");
+//		elementos = PO_View.checkElement(driver, "free", "//button[contains(text(), 'Comprar')]");
+//		elementos.get(0).click();
+//		PO_View.checkElement(driver, "text", "No tienes suficiente dinero");
+//		PO_NavView.clickOption(driver, "logout", "class", "btn btn-primary");
 	}
 
 	// Registro de Usuario con datos válidos

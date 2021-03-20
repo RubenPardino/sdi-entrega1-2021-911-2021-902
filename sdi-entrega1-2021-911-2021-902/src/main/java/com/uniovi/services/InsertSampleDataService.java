@@ -24,7 +24,7 @@ public class InsertSampleDataService {
 
 		Set user1Products = new HashSet<Product>() {
 			{
-				add(new Product("Coche de juguete", 10.0, "Juguete de madera", user1));
+				add(new Product("Coche radiocontrol", 100.0, "Juguete", user1));
 				add(new Product("Calendario", 3.0, "año 2021", user1));
 				add(new Product("Muñeca de juguete", 3.0, "Material porcelana", user1));
 
@@ -69,8 +69,8 @@ public class InsertSampleDataService {
 
 		Set user4Products = new HashSet<Product>() {
 			{
-				add(new Product("Radio", 150.0, "am y fm", user4));
-				add(new Product("Guitarra", 18.0, "madera de pino", user4));
+				add(new Product("Radio", 100.0, "am y fm", user4));
+				add(new Product("Guitarra", 180.0, "madera de pino", user4));
 				add(new Product("Estantería", 56.0, "Hecha de plastico", user4));
 
 			}
