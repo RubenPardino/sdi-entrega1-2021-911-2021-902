@@ -1,3 +1,5 @@
+/*
+
 package com.uniovi.entities;
 
 import java.time.LocalDate;
@@ -19,3 +21,5 @@ public class Message {
 	}
 
 }
+
+*/

@@ -2,6 +2,9 @@ package com.uniovi.services;
 
 import java.util.*;
 import javax.annotation.PostConstruct;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -13,12 +16,14 @@ import com.uniovi.repositories.UsersRepository;
 
 @Service
 public class UsersService {
+
+
 	@Autowired
 	private UsersRepository usersRepository;
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
-	
+
 	List<Long> ids = new ArrayList<Long>();
 
 	@PostConstruct
@@ -37,7 +42,7 @@ public class UsersService {
 
 	public Page<User> getUsers(Pageable pageable) {
 		Page<User> users = usersRepository.findAll(pageable);
-		
+
 		return users;
 	}
 
@@ -64,9 +69,9 @@ public class UsersService {
 		else
 			ids.add(id);
 	}
-	
+
 	public void confirmDelete() {
-		for (int i=0;i<ids.size();i++)
+		for (int i = 0; i < ids.size(); i++)
 			usersRepository.deleteById(ids.get(i));
 		ids.clear();
 	}

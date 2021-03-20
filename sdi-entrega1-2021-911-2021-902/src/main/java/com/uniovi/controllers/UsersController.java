@@ -5,6 +5,8 @@ import java.util.LinkedList;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -32,6 +34,7 @@ import com.uniovi.validators.SignUpFormValidator;
 
 @Controller
 public class UsersController {
+	private final Logger log = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	private MessageSource messageSource;
@@ -47,11 +50,10 @@ public class UsersController {
 
 	@Autowired
 	private SignUpFormValidator signUpFormValidator;
-	
+
 	@Autowired
 	HttpSession httpSession;
-	
-	
+
 	@RequestMapping("/user/list")
 	public String getListado(Model model, Pageable pageable,
 			@RequestParam(value = "", required = false) String searchText) {
@@ -76,6 +78,8 @@ public class UsersController {
 	@RequestMapping("/user/delete/{id}") /// user/confirmDelete
 	public String delete(@PathVariable Long id) {
 		usersService.manageDeleteUser(id);
+		log.info(messageSource.getMessage("log.user.delete", null, LocaleContextHolder.getLocale()) + id);
+
 		return "redirect:/user/list";
 	}
 
@@ -100,6 +104,7 @@ public class UsersController {
 		original.setName(user.getName());
 		original.setEmail(user.getEmail());
 		usersService.addUser(original);
+		log.info(messageSource.getMessage("log.user.edit", null, LocaleContextHolder.getLocale()) + id);
 		return "redirect:/user/details/" + id;
 	}
 
@@ -118,19 +123,28 @@ public class UsersController {
 		user.setRole(rolesService.getRoles()[0]);
 		usersService.addUser(user);
 		securityService.autoLogin(user.getEmail(), user.getPasswordConfirm());
+		log.info(messageSource.getMessage("log.user.register", null, LocaleContextHolder.getLocale()) + user.getId());
+
 		return "redirect:home";
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(Model model, String error, String logout) {
+	public String login(Model model, String error, String logout, Principal principal) {
 
 		if (error != null) {
 			model.addAttribute("error", messageSource.getMessage("Error.login", null, LocaleContextHolder.getLocale()));
+			log.info(messageSource.getMessage("Error.login", null, LocaleContextHolder.getLocale()));
+
 		}
 
 		if (logout != null) {
-			model.addAttribute("logout", messageSource.getMessage("Login.logout", null, LocaleContextHolder.getLocale()));
+			model.addAttribute("logout",
+					messageSource.getMessage("Login.logout", null, LocaleContextHolder.getLocale()));
+			log.info(messageSource.getMessage("Login.logout", null, LocaleContextHolder.getLocale()));
+
 		}
+		log.info(messageSource.getMessage("authenticated.message", null, LocaleContextHolder.getLocale()) + principal.getName());
+
 		return "login";
 	}
 
@@ -149,6 +163,5 @@ public class UsersController {
 		model.addAttribute("usersList", usersService.getUsers());
 		return "user/list :: tableUsers";
 	}
-	
 
 }
