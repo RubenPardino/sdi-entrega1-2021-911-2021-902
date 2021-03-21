@@ -14,6 +14,7 @@ import com.uniovi.entities.Product;
 import com.uniovi.entities.User;
 
 public interface ProductsRepository extends CrudRepository<Product, Long> {
+	
 	@Modifying
 	@Transactional
 	@Query("UPDATE Product SET vendido = ?1, comprador = ?3 WHERE id = ?2")

@@ -1,5 +1,7 @@
 package com.uniovi.tests;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -440,10 +442,11 @@ public class MyWallapopTests {
 		elementos.get(0).click();
 		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/myList')]");
 		elementos.get(0).click();
-		String tituloAnt = PO_View.checkElement(driver, "free", "//table/tbody/tr/td[2]").get(0).getText();
+		int numero = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/details')]").size();
 		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/delete')]");
 		elementos.get(0).click();
-		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, tituloAnt, PO_View.getTimeout());
+		int numero2 = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/details')]").size();
+		assertEquals(numero-1,numero2);
 
 	}
 
@@ -462,12 +465,13 @@ public class MyWallapopTests {
 		elementos.get(0).click();
 		PO_PaginationView.goToLastPage(driver);
 		elementos = PO_View.checkElement(driver, "free", "//table/tbody/tr/td[2]");
-		String tituloAnt = elementos.get(elementos.size() - 1).getText();
+		int numero = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/details')]").size();
 
 		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/delete')]");
 		elementos.get(elementos.size() - 1).click();
 		PO_PaginationView.goToLastPage(driver);
-		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, tituloAnt, PO_View.getTimeout());
+		int numero2 = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/details')]").size();
+		assertEquals(numero-1,numero2);
 	}
 
 	// Hacer una búsqueda con el campo vacío y comprobar que se muestra la página
@@ -552,15 +556,15 @@ public class MyWallapopTests {
 
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
 		// Rellenamos el formulario.
-		PO_LoginView.fillForm(driver, "a@gmail.com", "123456");
+		PO_LoginView.fillForm(driver, "b@gmail.com", "123456");
 		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
 		elementos.get(0).click();
 		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/list')]");
 		elementos.get(0).click();
-		PO_SearchView.fillForm(driver, "Lego");
+		PO_SearchView.fillForm(driver, "Helado");
 		elementos = PO_View.checkElement(driver, "free", "//button[contains(text(), 'Comprar')]");
 		elementos.get(0).click();
-		PO_View.checkElement(driver, "text", "82.0");
+		PO_View.checkElement(driver, "text", "96.0");
 		PO_NavView.clickOption(driver, "logout", "class", "btn btn-primary");
 	}
 
@@ -577,7 +581,7 @@ public class MyWallapopTests {
 		elementos.get(0).click();
 		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/list')]");
 		elementos.get(0).click();
-		PO_SearchView.fillForm(driver, "Radio");
+		PO_SearchView.fillForm(driver, "Reloj");
 		elementos = PO_View.checkElement(driver, "free", "//button[contains(text(), 'Comprar')]");
 		elementos.get(0).click();
 		PO_View.checkElement(driver, "text", "0.0");
@@ -596,7 +600,7 @@ public class MyWallapopTests {
 		elementos.get(0).click();
 		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/list')]");
 		elementos.get(0).click();
-		PO_SearchView.fillForm(driver, "Playmobil");
+		PO_SearchView.fillForm(driver, "Piano");
 		elementos = PO_View.checkElement(driver, "free", "//button[contains(text(), 'Comprar')]");
 		elementos.get(0).click();
 		PO_View.checkElement(driver, "text", "No tienes suficiente dinero");
@@ -615,8 +619,8 @@ public class MyWallapopTests {
 		elementos.get(0).click();
 		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/list/compradas')]");
 		elementos.get(0).click();
-		PO_View.checkElement(driver, "text", "Flauta");
-		PO_View.checkElement(driver, "text", "Pelota");
+		PO_View.checkElement(driver, "text", "Playmobil");
+		PO_View.checkElement(driver, "text", "Lego");
 		PO_NavView.clickOption(driver, "logout", "class", "btn btn-primary");
 	}
 
