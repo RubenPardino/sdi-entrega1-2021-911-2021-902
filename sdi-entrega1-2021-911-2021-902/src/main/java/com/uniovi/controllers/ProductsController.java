@@ -113,8 +113,9 @@ public class ProductsController {
 	}
 
 	@RequestMapping(value = "/product/add", method = RequestMethod.POST)
-	public String setProduct(@Validated Product Product, BindingResult result, Model model, Principal principal) {
+	public String setProduct(@Validated Product Product, BindingResult result, Model model, Principal principal, HttpServletRequest request) {
 		signUpProductFormValidator.validate(Product, result);
+		session = request.getSession();
 		if (result.hasErrors()) {
 			// model.addAttribute("usersList", usersService.getUsers());
 
