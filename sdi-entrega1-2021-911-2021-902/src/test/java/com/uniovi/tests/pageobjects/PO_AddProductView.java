@@ -22,6 +22,27 @@ public class PO_AddProductView extends PO_NavView {
 		By boton = By.className("btn");
 		driver.findElement(boton).click();
 	}
+	
+	static public void fillFormDestacado(WebDriver driver, String titlep, String descriptionp, String pricep) {
+		WebElement email = driver.findElement(By.name("title"));
+		email.click();
+		email.clear();
+		email.sendKeys(titlep);
+		WebElement name = driver.findElement(By.name("description"));
+		name.click();
+		name.clear();
+		name.sendKeys(descriptionp);
+		WebElement lastname = driver.findElement(By.name("money"));
+		lastname.click();
+		lastname.clear();
+		lastname.sendKeys(pricep);
+		
+		WebElement destacado = driver.findElement(By.name("destacado"));
+		destacado.click();
+		
+		By boton = By.className("btn");
+		driver.findElement(boton).click();
+	}
 
 
 }

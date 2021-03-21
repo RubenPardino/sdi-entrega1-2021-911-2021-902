@@ -48,8 +48,8 @@ public class MyWallapopTests {
 	// En Windows (Debe ser la versión 65.0.1 y desactivar las actualizacioens
 	// automáticas)):
 
-	 static String PathFirefox65 = "C:\\Program Files\\Mozilla Firefox\\firefox.exe";
-	 static String Geckdriver024 = "C:\\Users\\pardi\\OneDrive\\Escritorio\\SDI\\Sesion 5\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
+	static String PathFirefox65 = "C:\\Program Files\\Mozilla Firefox\\firefox.exe";
+	static String Geckdriver024 = "C:\\Users\\pardi\\OneDrive\\Escritorio\\SDI\\Sesion 5\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
 
 //	static String PathFirefox65 = "C:\\Program Files\\Mozilla Firefox\\firefox.exe";
 //	static String Geckdriver024 = "C:\\Users\\jk236\\Downloads\\PL-SDI-Sesión5-material\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
@@ -626,13 +626,13 @@ public class MyWallapopTests {
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
 		// Rellenamos el formulario.
 		PO_LoginView.fillForm(driver, "a@gmail.com", "123456");
-		
+
 		PO_View.checkElement(driver, "text", "Bienvenidos");
 		PO_NavView.changeIdiom(driver, "English");
 		PO_View.checkElement(driver, "text", "Welcome");
 		PO_NavView.changeIdiom(driver, "Spanish");
 		PO_View.checkElement(driver, "text", "Bienvenidos");
-		
+
 		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
 		elementos.get(0).click();
 		PO_View.checkElement(driver, "text", "Agregar");
@@ -644,7 +644,7 @@ public class MyWallapopTests {
 		elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
 		elementos.get(0).click();
 		PO_View.checkElement(driver, "text", "Agregar");
-		
+
 		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/add')]");
 		elementos.get(0).click();
 		PO_View.checkElement(driver, "text", "Añadir");
@@ -652,7 +652,7 @@ public class MyWallapopTests {
 		PO_View.checkElement(driver, "text", "Send");
 		PO_NavView.changeIdiom(driver, "Spanish");
 		PO_View.checkElement(driver, "text", "Enviar");
-		
+
 		PO_NavView.clickOption(driver, "logout", "class", "btn btn-primary");
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
 		// Rellenamos el formulario.
@@ -664,9 +664,9 @@ public class MyWallapopTests {
 		PO_View.checkElement(driver, "text", "Users");
 		PO_NavView.changeIdiom(driver, "Spanish");
 		PO_View.checkElement(driver, "text", "Usuarios");
-		
+
 		PO_NavView.clickOption(driver, "logout", "class", "btn btn-primary");
-		
+
 	}
 
 	// Registro de Usuario con datos válidos
@@ -733,6 +733,66 @@ public class MyWallapopTests {
 		PO_AddProductView.fillForm(driver, "Camiseta", "camiseta azul de seda", "0");
 		PO_RegisterView.checkKey(driver, "Error.addmark.score", PO_Properties.getSPANISH());
 
+	}
+
+	// Destacar una oferta al crearla, que aparezca en la lista de destacadas y se te baje el dinero
+	@Test
+	public void PR36() {
+		initDB();
+
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario.
+		PO_LoginView.fillForm(driver, "a@gmail.com", "123456");
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
+		elementos.get(0).click();
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/add')]");
+		elementos.get(0).click();
+		PO_AddProductView.fillFormDestacado(driver, "Camiseta", "camiseta azul de seda", "20");
+		elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'home')]/a");
+		elementos.get(0).click();
+		PO_View.checkElement(driver, "text", "80.0");
+		PO_View.checkElement(driver, "text", "Camiseta");
+	}
+
+	// Comprar una oferta que cueste todo tu dinero y comprobar que te deja el saldo
+	// a 0
+	@Test
+	public void PR37() {
+		initDB();
+
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario.
+		PO_LoginView.fillForm(driver, "a@gmail.com", "123456");
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
+		elementos.get(0).click();
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/myList')]");
+		elementos.get(0).click();
+		String tituloAnt = PO_View.checkElement(driver, "free", "//table/tbody/tr/td[2]").get(0).getText();
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/highlight')]");
+		elementos.get(0).click();
+		elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'home')]/a");
+		elementos.get(0).click();
+		PO_View.checkElement(driver, "text", "80.0");
+		PO_View.checkElement(driver, "text", "Calendario");
+	}
+
+	// Comprar una oferta que cueste todo tu dinero y comprobar que te deja el saldo
+	// a 0
+	@Test
+	public void PR38() {
+		initDB();
+
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario.
+		PO_LoginView.fillForm(driver, "a@gmail.com", "123456");
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
+		elementos.get(0).click();
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/myList')]");
+		elementos.get(0).click();
+		String tituloAnt = PO_View.checkElement(driver, "free", "//table/tbody/tr/td[2]").get(0).getText();
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/highlight')]");
+		elementos.get(0).click();
+		PO_View.checkElement(driver, "text", "Saldo insuficiente");
 	}
 
 }
