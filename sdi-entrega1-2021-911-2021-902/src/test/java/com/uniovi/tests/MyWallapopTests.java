@@ -51,15 +51,12 @@ public class MyWallapopTests {
 
 	// En Windows (Debe ser la versión 65.0.1 y desactivar las actualizacioens
 	// automáticas)):
-
-	// static String PathFirefox65 = "C:\\Program Files\\Mozilla
-	// Firefox\\firefox.exe";
-	// static String Geckdriver024 =
-	// "C:\\Users\\pardi\\OneDrive\\Escritorio\\SDI\\Sesion
-	// 5\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
-
+	
 	static String PathFirefox65 = "C:\\Program Files\\Mozilla Firefox\\firefox.exe";
-	static String Geckdriver024 = "C:\\Users\\jk236\\Downloads\\PL-SDI-Sesión5-material\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
+	 static String Geckdriver024 = "C:\\Users\\pardi\\OneDrive\\Escritorio\\SDI\\Sesion 5\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
+
+//	static String PathFirefox65 = "C:\\Program Files\\Mozilla Firefox\\firefox.exe";
+//	static String Geckdriver024 = "C:\\Users\\jk236\\Downloads\\PL-SDI-Sesión5-material\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
 
 	// En MACOSX (Debe ser la versión 65.0.1
 	// y desactivar las actualizacioens automáticas):
@@ -758,7 +755,6 @@ public class MyWallapopTests {
 		elementos.get(0).click();
 		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/myList')]");
 		elementos.get(0).click();
-		String tituloAnt = PO_View.checkElement(driver, "free", "//table/tbody/tr/td[2]").get(0).getText();
 		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/highlight')]");
 		elementos.get(0).click();
 		elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'home')]/a");
@@ -781,7 +777,6 @@ public class MyWallapopTests {
 		elementos.get(0).click();
 		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/myList')]");
 		elementos.get(0).click();
-		String tituloAnt = PO_View.checkElement(driver, "free", "//table/tbody/tr/td[2]").get(0).getText();
 		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/highlight')]");
 		elementos.get(0).click();
 		PO_View.checkElement(driver, "text", "No tienes suficiente dinero");
