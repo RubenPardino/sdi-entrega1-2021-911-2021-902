@@ -52,11 +52,14 @@ public class MyWallapopTests {
 	// En Windows (Debe ser la versión 65.0.1 y desactivar las actualizacioens
 	// automáticas)):
 
-	static String PathFirefox65 = "C:\\Program Files\\Mozilla Firefox\\firefox.exe";
-	static String Geckdriver024 = "C:\\Users\\pardi\\OneDrive\\Escritorio\\SDI\\Sesion 5\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
+	// static String PathFirefox65 = "C:\\Program Files\\Mozilla
+	// Firefox\\firefox.exe";
+	// static String Geckdriver024 =
+	// "C:\\Users\\pardi\\OneDrive\\Escritorio\\SDI\\Sesion
+	// 5\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
 
-//	static String PathFirefox65 = "C:\\Program Files\\Mozilla Firefox\\firefox.exe";
-//	static String Geckdriver024 = "C:\\Users\\jk236\\Downloads\\PL-SDI-Sesión5-material\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
+	static String PathFirefox65 = "C:\\Program Files\\Mozilla Firefox\\firefox.exe";
+	static String Geckdriver024 = "C:\\Users\\jk236\\Downloads\\PL-SDI-Sesión5-material\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
 
 	// En MACOSX (Debe ser la versión 65.0.1
 	// y desactivar las actualizacioens automáticas):
@@ -299,7 +302,7 @@ public class MyWallapopTests {
 		String email = elementos.get(0).getText();
 		By boton = By.id("deleteButton");
 		driver.findElement(boton).click();
-		
+
 //		PO_View.checkElement(driver, "text", "No tienes suficiente dinero");
 		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "a@gmail.com", PO_View.getTimeout());
 
@@ -407,7 +410,8 @@ public class MyWallapopTests {
 		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/add')]");
 		elementos.get(0).click();
 		PO_AddProductView.fillForm(driver, "", "camiseta azul de seda", "20");
-		//PO_View.checkElement(driver, "text", "El título debe tener una longitud mayor que 5");
+		// PO_View.checkElement(driver, "text", "El título debe tener una longitud mayor
+		// que 5");
 		PO_RegisterView.checkKey(driver, "Error.addmark.title.length", PO_Properties.getSPANISH());
 
 	}
@@ -719,7 +723,8 @@ public class MyWallapopTests {
 		PO_NavView.clickOption(driver, "logout", "class", "btn btn-primary");
 	}
 
-	// Destacar una oferta al crearla, que aparezca en la lista de destacadas y se te baje el dinero
+	// Destacar una oferta al crearla, que aparezca en la lista de destacadas y se
+	// te baje el dinero
 	@Test
 	public void PR36() {
 		initDB();
@@ -734,6 +739,7 @@ public class MyWallapopTests {
 		PO_AddProductView.fillFormDestacado(driver, "Camiseta", "camiseta azul de seda", "20");
 		elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'home')]/a");
 		elementos.get(0).click();
+		//driver.navigate().to("http://localhost:8090/home");
 		PO_View.checkElement(driver, "text", "80.0");
 		PO_View.checkElement(driver, "text", "Camiseta");
 		PO_NavView.clickOption(driver, "logout", "class", "btn btn-primary");
