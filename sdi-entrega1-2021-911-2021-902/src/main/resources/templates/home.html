@@ -74,7 +74,8 @@
 									<script th:inline="javascript">
  									/*<![CDATA[*/
  									 $( "#commprarButton[[${product.id}]]" ).click(function() {
- 									 	$.get( "/product/[[${product.id}]]/vendido");
+ 									 	$.get( "/product/[[${product.id}]]/vendido", function() {location.reload();} );
+ 									 	
  									 });
  									 /*]]>*/
   									</script>
