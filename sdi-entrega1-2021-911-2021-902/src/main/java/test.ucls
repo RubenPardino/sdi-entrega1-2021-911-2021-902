@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.4" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
+  realizations="true" associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="com.uniovi.controllers.HomeController" project="sdi-entrega1-2021-911-2021-902" 
+    file="/sdi-entrega1-2021-911-2021-902/src/main/java/com/uniovi/controllers/HomeController.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2105" y="899"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="com.uniovi.controllers.UsersController" project="sdi-entrega1-2021-911-2021-902" 
+    file="/sdi-entrega1-2021-911-2021-902/src/main/java/com/uniovi/controllers/UsersController.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="327" width="200" x="1902" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="com.uniovi.controllers.ProductsController" 
+    project="sdi-entrega1-2021-911-2021-902" 
+    file="/sdi-entrega1-2021-911-2021-902/src/main/java/com/uniovi/controllers/ProductsController.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1457" y="324"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="com.uniovi.entities.User" project="sdi-entrega1-2021-911-2021-902" 
+    file="/sdi-entrega1-2021-911-2021-902/src/main/java/com/uniovi/entities/User.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="561" width="165" x="2369" y="656"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="com.uniovi.entities.Product" project="sdi-entrega1-2021-911-2021-902" 
+    file="/sdi-entrega1-2021-911-2021-902/src/main/java/com/uniovi/entities/Product.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="579" width="196" x="2369" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="6" language="java" name="com.uniovi.repositories.ProductsRepository" 
+    project="sdi-entrega1-2021-911-2021-902" 
+    file="/sdi-entrega1-2021-911-2021-902/src/main/java/com/uniovi/repositories/ProductsRepository.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="255" width="310" x="1665" y="1257"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="7" language="java" name="com.uniovi.repositories.UsersRepository" 
+    project="sdi-entrega1-2021-911-2021-902" 
+    file="/sdi-entrega1-2021-911-2021-902/src/main/java/com/uniovi/repositories/UsersRepository.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="129" width="294" x="1211" y="1588"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="8" language="java" name="com.uniovi.services.InsertSampleDataService" 
+    project="sdi-entrega1-2021-911-2021-902" 
+    file="/sdi-entrega1-2021-911-2021-902/src/main/java/com/uniovi/services/InsertSampleDataService.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="93" width="151" x="1677" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="com.uniovi.services.RolesService" project="sdi-entrega1-2021-911-2021-902" 
+    file="/sdi-entrega1-2021-911-2021-902/src/main/java/com/uniovi/services/RolesService.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1751" y="303"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="com.uniovi.services.SecurityService" project="sdi-entrega1-2021-911-2021-902" 
+    file="/sdi-entrega1-2021-911-2021-902/src/main/java/com/uniovi/services/SecurityService.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="165" width="220" x="2109" y="656"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="com.uniovi.services.UsersService" project="sdi-entrega1-2021-911-2021-902" 
+    file="/sdi-entrega1-2021-911-2021-902/src/main/java/com/uniovi/services/UsersService.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="291" width="294" x="1331" y="1257"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="com.uniovi.services.ProductsService" project="sdi-entrega1-2021-911-2021-902" 
+    file="/sdi-entrega1-2021-911-2021-902/src/main/java/com/uniovi/services/ProductsService.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="363" width="348" x="1371" y="656"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="com.uniovi.services.UserDetailsServiceImpl" 
+    project="sdi-entrega1-2021-911-2021-902" 
+    file="/sdi-entrega1-2021-911-2021-902/src/main/java/com/uniovi/services/UserDetailsServiceImpl.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="93" width="201" x="1090" y="1257"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="14" language="java" name="com.uniovi.validators.SignUpFormValidator" 
+    project="sdi-entrega1-2021-911-2021-902" 
+    file="/sdi-entrega1-2021-911-2021-902/src/main/java/com/uniovi/validators/SignUpFormValidator.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1838" y="745"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="15" language="java" name="com.uniovi.validators.SignUpProductFormValidator" 
+    project="sdi-entrega1-2021-911-2021-902" 
+    file="/sdi-entrega1-2021-911-2021-902/src/main/java/com/uniovi/validators/SignUpProductFormValidator.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="111" width="170" x="1119" y="656"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="16" language="java" name="com.uniovi.validators.BuyValidator" project="sdi-entrega1-2021-911-2021-902" 
+    file="/sdi-entrega1-2021-911-2021-902/src/main/java/com/uniovi/validators/BuyValidator.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2215" y="1133"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="17" language="java" name="com.uniovi.WebSecurityConfig" project="sdi-entrega1-2021-911-2021-902" 
+    file="/sdi-entrega1-2021-911-2021-902/src/main/java/com/uniovi/WebSecurityConfig.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1991" y="1105"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="18" language="java" name="com.uniovi.CustomConfiguration" project="sdi-entrega1-2021-911-2021-902" 
+    file="/sdi-entrega1-2021-911-2021-902/src/main/java/com/uniovi/CustomConfiguration.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2187" y="1330"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="19" language="java" name="com.uniovi.SdiEntrega120219112021902Application" 
+    project="sdi-entrega1-2021-911-2021-902" 
+    file="/sdi-entrega1-2021-911-2021-902/src/main/java/com/uniovi/SdiEntrega120219112021902Application.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2240" y="1006"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="20">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="21" name="rolesService">        
+        <position height="15" width="60" x="1668" y="225"/>      
+      </attribute>      
+      <multiplicity id="22" minimum="0" maximum="1">        
+        <position height="13" width="21" x="1719" y="220"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="23">    
+    <bendpoint x="1715" y="1044"/>    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="24" name="usersService"/>      
+      <multiplicity id="25" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="26">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="27" name="securityService"/>      
+      <multiplicity id="28" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="29">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="30" name="ProductsService"/>      
+      <multiplicity id="31" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="32">    
+    <bendpoint x="2089" y="741"/>    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="33" name="usersService"/>      
+      <multiplicity id="34" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="35">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="36" name="signUpFormValidator"/>      
+      <multiplicity id="37" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="38">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="39" name="signUpProductFormValidator"/>      
+      <multiplicity id="40" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="41">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="42" name="usersService"/>      
+      <multiplicity id="43" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="44">    
+    <bendpoint x="1288" y="123"/>    
+    <bendpoint x="960" y="704"/>    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="45" name="usersService">        
+        <position height="15" width="63" x="1270" y="1214"/>      
+      </attribute>      
+      <multiplicity id="46" minimum="0" maximum="1">        
+        <position height="13" width="21" x="1329" y="1216"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="47">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="48" name="rolesService">        
+        <position height="15" width="60" x="1750" y="208"/>      
+      </attribute>      
+      <multiplicity id="49" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="50">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="51" name="products"/>      
+      <multiplicity id="52" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="53">    
+    <bendpoint x="990" y="689"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="54" name="usersService">        
+        <position height="15" width="63" x="1363" y="1221"/>      
+      </attribute>      
+      <multiplicity id="55" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="56">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="57" name="user"/>      
+      <multiplicity id="58" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="59">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="60" name="usersRepository"/>      
+      <multiplicity id="61" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="62">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="63" name="usersRepository"/>      
+      <multiplicity id="64" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="65">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="66" name="ProductsService"/>      
+      <multiplicity id="67" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="68">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="69" name="ProductsRepository"/>      
+      <multiplicity id="70" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

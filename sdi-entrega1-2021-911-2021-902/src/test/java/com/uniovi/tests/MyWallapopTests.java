@@ -1,9 +1,7 @@
 package com.uniovi.tests;
 
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -21,8 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.uniovi.entities.Product;
-import com.uniovi.entities.User;
 import com.uniovi.repositories.UsersRepository;
 import com.uniovi.services.InsertSampleDataService;
 import com.uniovi.tests.pageobjects.PO_AddProductView;
@@ -303,8 +299,7 @@ public class MyWallapopTests {
 		By boton = By.id("deleteButton");
 		driver.findElement(boton).click();
 
-//		PO_View.checkElement(driver, "text", "No tienes suficiente dinero");
-		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "a@gmail.com", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, email, PO_View.getTimeout());
 
 	}
 
