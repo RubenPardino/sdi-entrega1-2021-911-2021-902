@@ -222,12 +222,19 @@ public class ProductsController {
 	
 	@RequestMapping(value = "/product/highlight/{id}")
 	public String setHighlight(Model model, @PathVariable Long id) {
-		ProductsService.highlightOffer(id);
 		User user = (User) session.getAttribute("user");
-		user.setMoney(user.getMoney()-20);
-		usersService.updateUserMoney(user.getId(), user.getMoney());
-		session.removeAttribute("user");
-		session.setAttribute("user", user);
+		if (user.getMoney()<20) {
+			session.setAttribute("sinsaldo",
+					messageSource.getMessage("Error.buy.no.money", null, LocaleContextHolder.getLocale()));
+			log.info(messageSource.getMessage("Error.buy.no.money", null, LocaleContextHolder.getLocale()) + id);
+		}
+		else {
+			ProductsService.highlightOffer(id);
+			user.setMoney(user.getMoney()-20);
+			usersService.updateUserMoney(user.getId(), user.getMoney());
+			session.removeAttribute("user");
+			session.setAttribute("user", user);
+		}
 		return "redirect:/product/myList";
 	}
 

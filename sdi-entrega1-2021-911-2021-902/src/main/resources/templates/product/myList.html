@@ -17,6 +17,7 @@
 			<table class="table table-hover" th:fragment="tableProducts"
 				id="tableProducts">
 				<span th:replace="fragments/emailMoney"></span>
+				<span class="text-danger" th:text="${session.sinsaldo}" />
 				<thead>
 					<tr>
 						<th class="col-md-1">Id</th>
