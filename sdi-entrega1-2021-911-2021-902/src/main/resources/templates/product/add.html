@@ -9,7 +9,9 @@
 
 
 	<div class="container">
+		<span th:replace="fragments/emailMoney"></span>
 		<h2 th:text="#{addOffer.message}"></h2>
+		
 		<form class="form-horizontal" method="post" action="/product/add"
 			th:object="${product}">
 			
