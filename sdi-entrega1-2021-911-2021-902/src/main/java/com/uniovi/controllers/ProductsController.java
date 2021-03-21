@@ -126,11 +126,17 @@ public class ProductsController {
 		Product.setUser(user);
 		
 		if (Product.getDestacado()) {
+			if (user.getMoney()<20) {
+				session.setAttribute("sinsaldo",
+						messageSource.getMessage("Error.buy.no.money", null, LocaleContextHolder.getLocale()));
+				log.info(messageSource.getMessage("Error.buy.no.money", null, LocaleContextHolder.getLocale()) + Product.getId());
+				return "product/add";
+			}
 			user.setMoney(user.getMoney()-20);
 			session.removeAttribute("user");
 			session.setAttribute("user", user);
 		}
-
+		
 		ProductsService.addProduct(Product);
 		log.info(messageSource.getMessage("log.product.add", null, LocaleContextHolder.getLocale()));
 
@@ -221,8 +227,10 @@ public class ProductsController {
 	}
 	
 	@RequestMapping(value = "/product/highlight/{id}")
-	public String setHighlight(Model model, @PathVariable Long id) {
-		User user = (User) session.getAttribute("user");
+	public String setHighlight(Model model, @PathVariable Long id, Principal principal, HttpServletRequest request) {
+		session = request.getSession();
+		String email = principal.getName();
+		User user = usersService.getUserByEmail(email);
 		if (user.getMoney()<20) {
 			session.setAttribute("sinsaldo",
 					messageSource.getMessage("Error.buy.no.money", null, LocaleContextHolder.getLocale()));
@@ -232,7 +240,7 @@ public class ProductsController {
 			ProductsService.highlightOffer(id);
 			user.setMoney(user.getMoney()-20);
 			usersService.updateUserMoney(user.getId(), user.getMoney());
-			session.removeAttribute("user");
+			session.removeAttribute("user");	
 			session.setAttribute("user", user);
 		}
 		return "redirect:/product/myList";

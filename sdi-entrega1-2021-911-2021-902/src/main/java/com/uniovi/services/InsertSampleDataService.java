@@ -101,8 +101,11 @@ public class InsertSampleDataService {
 			}
 		};
 		user5.setProducts(user5Products);
+		user5.setMoney(1.0);
 
 		usersService.addUser(user5);
+		
+		
 
 	}
 }

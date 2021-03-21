@@ -1,7 +1,9 @@
 package com.uniovi.tests;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -19,6 +21,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.uniovi.entities.Product;
+import com.uniovi.entities.User;
 import com.uniovi.repositories.UsersRepository;
 import com.uniovi.services.InsertSampleDataService;
 import com.uniovi.tests.pageobjects.PO_AddProductView;
@@ -295,8 +299,9 @@ public class MyWallapopTests {
 		String email = elementos.get(0).getText();
 		By boton = By.id("deleteButton");
 		driver.findElement(boton).click();
-
-		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, email, PO_View.getTimeout());
+		
+//		PO_View.checkElement(driver, "text", "No tienes suficiente dinero");
+		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "a@gmail.com", PO_View.getTimeout());
 
 	}
 
@@ -402,6 +407,7 @@ public class MyWallapopTests {
 		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/add')]");
 		elementos.get(0).click();
 		PO_AddProductView.fillForm(driver, "", "camiseta azul de seda", "20");
+		//PO_View.checkElement(driver, "text", "El título debe tener una longitud mayor que 5");
 		PO_RegisterView.checkKey(driver, "Error.addmark.title.length", PO_Properties.getSPANISH());
 
 	}
@@ -709,30 +715,8 @@ public class MyWallapopTests {
 		driver.navigate().to("http://localhost:8090/user/list");
 
 		PO_View.checkElement(driver, "free", "//h1[contains(text(),'HTTP Status 403 – Forbidden')]");
-
-	}
-
-	// Ir al formulario de alta de oferta, rellenarla con datos inválidos
-	// y pulsar el botón Submit. Comprobar que se muestra el mensaje
-	// de campo obligatorio.
-	@Test
-	public void PR31() {
-		initDB();
-
-		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
-		// Rellenamos el formulario.
-		PO_LoginView.fillForm(driver, "a@gmail.com", "123456");
-		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
-		elementos.get(0).click();
-		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/add')]");
-		elementos.get(0).click();
-		PO_AddProductView.fillForm(driver, "Cam", "camiseta azul de seda", "20");
-		PO_RegisterView.checkKey(driver, "Error.addmark.title.length", PO_Properties.getSPANISH());
-		PO_AddProductView.fillForm(driver, "Camiseta", "camiseta", "20");
-		PO_RegisterView.checkKey(driver, "Error.addmark.description.length", PO_Properties.getSPANISH());
-		PO_AddProductView.fillForm(driver, "Camiseta", "camiseta azul de seda", "0");
-		PO_RegisterView.checkKey(driver, "Error.addmark.score", PO_Properties.getSPANISH());
-
+		driver.navigate().to("http://localhost:8090/home");
+		PO_NavView.clickOption(driver, "logout", "class", "btn btn-primary");
 	}
 
 	// Destacar una oferta al crearla, que aparezca en la lista de destacadas y se te baje el dinero
@@ -752,6 +736,7 @@ public class MyWallapopTests {
 		elementos.get(0).click();
 		PO_View.checkElement(driver, "text", "80.0");
 		PO_View.checkElement(driver, "text", "Camiseta");
+		PO_NavView.clickOption(driver, "logout", "class", "btn btn-primary");
 	}
 
 	// Comprar una oferta que cueste todo tu dinero y comprobar que te deja el saldo
@@ -774,6 +759,7 @@ public class MyWallapopTests {
 		elementos.get(0).click();
 		PO_View.checkElement(driver, "text", "80.0");
 		PO_View.checkElement(driver, "text", "Calendario");
+		PO_NavView.clickOption(driver, "logout", "class", "btn btn-primary");
 	}
 
 	// Comprar una oferta que cueste todo tu dinero y comprobar que te deja el saldo
@@ -784,7 +770,7 @@ public class MyWallapopTests {
 
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
 		// Rellenamos el formulario.
-		PO_LoginView.fillForm(driver, "a@gmail.com", "123456");
+		PO_LoginView.fillForm(driver, "d@gmail.com", "123456");
 		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
 		elementos.get(0).click();
 		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/myList')]");
@@ -792,7 +778,8 @@ public class MyWallapopTests {
 		String tituloAnt = PO_View.checkElement(driver, "free", "//table/tbody/tr/td[2]").get(0).getText();
 		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'product/highlight')]");
 		elementos.get(0).click();
-		PO_View.checkElement(driver, "text", "Saldo insuficiente");
+		PO_View.checkElement(driver, "text", "No tienes suficiente dinero");
+		PO_NavView.clickOption(driver, "logout", "class", "btn btn-primary");
 	}
 
 }
